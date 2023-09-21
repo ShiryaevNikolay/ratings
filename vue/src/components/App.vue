@@ -2,18 +2,15 @@
   <div>
     <RouterView />
     <ModalContainer />
-    <FormInput />
   </div>
 </template>
 
 <script>
 import ModalContainer from "@/components/parts/ModalContainer";
-import FormInput from "@/components/form/FormInput"
 
 export default {
   components: {
     ModalContainer,
-    FormInput
   }
 }
 </script>
