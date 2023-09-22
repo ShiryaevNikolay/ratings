@@ -4,6 +4,7 @@ import router from './router';
 import Vuex from 'vuex'
 import storeRoot from './store'
 import { sync } from "vuex-router-sync";
+import 'element-ui/lib/theme-chalk/index.css';
 
 Vue.use(Vuex)
 Vue.config.productionTip = false
