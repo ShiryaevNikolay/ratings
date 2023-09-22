@@ -1,4 +1,8 @@
-<el-input placeholder="Please input" v-model="input"></el-input>
+<template>
+    <div>
+        <el-input placeholder="Please input" v-model="input"></el-input>
+    </div>
+</template>
 
 <script>
 export default {
