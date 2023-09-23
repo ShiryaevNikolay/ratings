@@ -1,8 +1,8 @@
 <template>
   <div>
-    <el-input v-model="form.name" placeholder="Please input name" />
-    <el-input v-model="form.year" placeholder="Please input year" />
-    <el-input v-model="form.previewUrl" placeholder="Please input preview URL" />
+    <el-input class="input_margin" v-model="form.name" placeholder="Please input name" />
+    <el-input class="input_margin" v-model="form.year" placeholder="Please input year" />
+    <el-input class="input_margin" v-model="form.previewUrl" placeholder="Please input preview URL" />
   </div>
 </template>
 
@@ -20,3 +20,9 @@ export default {
   }
 }
 </script>
+
+<style lang="less">
+.input_margin {
+  margin-top: 16px;
+}
+</style>
