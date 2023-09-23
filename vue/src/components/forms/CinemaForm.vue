@@ -4,7 +4,7 @@
     <el-input class="input_theme" v-model="form.year" placeholder="Please input year" />
     <el-input class="input_theme" v-model="form.previewUrl" placeholder="Please input preview URL" />
     <div class="button_theme">
-      <el-button type="primary" v-on:click="showInputText">Primary</el-button>
+      <el-button type="primary" v-on:click="showInputText">Напечатать в консоль</el-button>
     </div>
   </div>
 </template>
