@@ -14,7 +14,7 @@
 <script>
 import PageLayout from '../parts/PageLayout'
 import { helpModal } from "@/mixins/modals";
-import { mapActions } from "vuex";
+import { mapGetters } from "vuex";
 import CinemaForm from "../forms/CinemaForm"
 import CinemaCard from "../cinema/CinemaCard.vue"
 
@@ -27,10 +27,12 @@ export default {
     CinemaCard
   },
   computed: {
-    ...mapActions([
+    ...mapGetters('cinema', [
       'getFilms'
     ]),
-    films: () => this.getFilms()
+    films () {
+      return this.getFilms()
+    }
   }
 }
 </script>
