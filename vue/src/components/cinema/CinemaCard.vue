@@ -1,43 +1,66 @@
 <template>
-  <div class="cinema-card">
-    <img class="cinema-card__image" :src="cinema.previewUrl"/>
-    <span class="cinema-card__element cinema-card__element_title">{{ cinema.name }}</span>
-    <span class="cinema-card__element">{{ cinema.year }}</span>
+  <div class="cinema-card-container">
+    <RouterLink to="/details">
+    <div class="cinema-card">
+      <img class="cinema-card__image" :src="cinema.previewUrl" />
+      <ul class="cinema-card__content">
+        <li class="cinema-card__name">{{ cinema.name }}</li>
+        <li class="cinem-card__year">{{ cinema.year }}</li>
+      </ul>
+    </div>
+  </RouterLink>
   </div>
 </template>
 
 <script>
+import { RouterLink } from 'vue-router';
+
 export default {
   name: 'CinemaCard',
   props: {
     cinema: Object,
     default: () => (null)
-  }
+  },
+  components: { RouterLink }
 }
 </script>
 
 <style lang="less">
-.cinema-card {
-  padding-bottom: 16px;
-  border: solid #DCDCDC;
-  border-radius: 10px;
+ul {
+  display: inline-block;
+  padding: 0px;
+  margin: 0px;
+  list-style-type: none;
+}
 
-  &__image {
-    max-width: 100%;
-    border-radius: 8px 8px 0px 0px;
+a:active,
+a:hover,
+a:visited,
+a {
+  color: black;
+  text-decoration: none;
+}
+
+.cinema-card-container {
+  margin-top: 16px;
+}
+
+.cinema-card {
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.05);
   }
 
-  &__element {
-    display: block;
-    font-family: 'Courier New', Courier;
-    margin-top: 8px;
-    padding-left: 16px;
-    padding-right: 16px;
+  &__image {
+    max-height: 200px;
+  }
 
-    &_title {
-      font-size: 18px;
-      font-weight: 500;
-    }
+  &__content {
+    margin: 16px;
+    vertical-align: top;
+  }
+
+  &__name {
+    margin-bottom: 16px;
   }
 }
 </style>
