@@ -1,14 +1,8 @@
 <template>
   <div class="cinema-card">
-    <el-row>
-      <img class="cinema-card__image" :src="getPreviewUrl()"/>
-    </el-row>
-    <el-row>
-      <span class="cinema-card__element cinema-card__element_title">{{ cinema.name }}</span>
-    </el-row>
-    <el-row>
-      <span class="cinema-card__element">{{ cinema.year }}</span>
-    </el-row>
+    <img class="cinema-card__image" :src="cinema.previewUrl"/>
+    <span class="cinema-card__element cinema-card__element_title">{{ cinema.name }}</span>
+    <span class="cinema-card__element">{{ cinema.year }}</span>
   </div>
 </template>
 
@@ -18,11 +12,6 @@ export default {
   props: {
     cinema: Object,
     default: () => (null)
-  },
-  computed: {
-    getPreviewUrl () {
-      return this.props.cinema.previewUrl
-    }
   }
 }
 </script>
