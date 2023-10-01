@@ -19,7 +19,7 @@ const routes = [
     component: ListCinema
   },
   {
-    path: '/list-cinema/details',
+    path: '/cinema/:id',
     name: RouteNames.CINEMA_DETAILS,
     component: CinemaDetails
   }

@@ -10,14 +10,17 @@
       <el-input v-model="form.previewUrl" placeholder="Please input preview URL" />
     </div>
     <div class="cinema-form__control">
-      <el-button type="primary" @click="() => showInputText()">Напечатать в консоль</el-button>
+      <el-button type="primary" @click="() => saveCinema()">Добавить фильм</el-button>
     </div>
   </div>
 </template>
 
 <script>
+import { helpCinema } from "@/mixins/cinema";
+
 export default {
   name: 'FormInput',
+  mixins: [helpCinema],
   data() {
     return {
       form: {
@@ -25,16 +28,6 @@ export default {
         year: '',
         previewUrl: ''
       }
-    }
-  },
-  methods: {
-    showInputText () {
-      const text = `
-      Название фильма: ${this.form.name}
-      Год: ${this.form.year}
-      Ссылка: ${this.form.previewUrl}
-      `
-      console.log(text)
     }
   }
 }

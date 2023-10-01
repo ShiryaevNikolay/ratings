@@ -1,19 +1,17 @@
 <template>
   <div class="cinema-card-container">
-    <RouterLink to="/details">
-    <div class="cinema-card">
+    <div @click="openCinemaDetails" class="cinema-card">
       <img class="cinema-card__image" :src="cinema.previewUrl" />
       <ul class="cinema-card__content">
         <li class="cinema-card__name">{{ cinema.name }}</li>
         <li class="cinem-card__year">{{ cinema.year }}</li>
       </ul>
     </div>
-  </RouterLink>
   </div>
 </template>
 
 <script>
-import { RouterLink } from 'vue-router';
+import { RouteNames } from '@/router/routes';
 
 export default {
   name: 'CinemaCard',
@@ -21,7 +19,13 @@ export default {
     cinema: Object,
     default: () => (null)
   },
-  components: { RouterLink }
+  methods: {
+    openCinemaDetails () {
+      this.$router.push({
+        name: RouteNames.CINEMA_DETAILS
+      })
+    }
+  }
 }
 </script>
 
@@ -31,14 +35,6 @@ ul {
   padding: 0px;
   margin: 0px;
   list-style-type: none;
-}
-
-a:active,
-a:hover,
-a:visited,
-a {
-  color: black;
-  text-decoration: none;
 }
 
 .cinema-card-container {

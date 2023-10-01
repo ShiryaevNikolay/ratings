@@ -4,8 +4,8 @@
       Homepage
       <button @click="() => openHelpModal()">Open modal</button>
       <CinemaForm />
-      <div>
-        <CinemaCard v-for="cinema in getFilms" :key="cinema.name" :cinema="cinema" />
+      <div class="control">
+        <el-button type="primary" @click="() => openListCinema()" plain>Показать список фильмов</el-button>
       </div>
     </section>
   </PageLayout>
@@ -14,20 +14,28 @@
 <script>
 import PageLayout from '../parts/PageLayout'
 import { helpModal } from "@/mixins/modals";
-import { helpCinema } from "@/mixins/cinema";
 import CinemaForm from "../forms/CinemaForm"
-import CinemaCard from "../cinema/CinemaCard.vue"
+import { RouteNames } from '@/router/routes';
 
 export default {
   name: 'HomePage',
-  mixins: [helpModal, helpCinema],
+  mixins: [helpModal],
   components: {
     PageLayout,
-    CinemaForm,
-    CinemaCard
+    CinemaForm
+  },
+  methods: {
+    openListCinema() {
+      this.$router.push({
+        name: RouteNames.LIST_CINEMA
+      })
+    }
   }
 }
 </script>
 
-<style>
+<style lang="less">
+.control {
+  margin-top: 16px;
+}
 </style>
