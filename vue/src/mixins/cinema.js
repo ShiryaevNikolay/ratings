@@ -8,7 +8,8 @@ export const helpCinema = {
   },
   computed: {
     ...mapGetters('cinema', [
-      'getFilms'
+      'getFilms',
+      'getFilm'
     ])
   }
 }

@@ -27,7 +27,8 @@ export default {
     ]
   },
   getters: {
-    getFilms: (state) => state.films
+    getFilms: (state) => state.films,
+    getFilm: (state) => (id) => state.films.find((cinema) => cinema.id == id)
   },
   mutations: {
     addCinema: (state, payload) => {
