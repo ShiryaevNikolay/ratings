@@ -1,8 +1,25 @@
+export const randomInteger = (min, max) => {
+  const rand = min + Math.random() * (max - min);
+  return Math.round(rand);
+}
+
+export const genHash = (length = 32) => {
+  let hash = "";
+  const chars = "abcdefghijklmnopqrstuvwxyz0123456789";
+
+  for (let i = 0; i < length; i++) {
+    hash += chars[randomInteger(0, chars.length-1)]
+  }
+
+  return hash + Date.now();
+}
+
 export default {
   namespaced: true,
   state: {
     films: [
       {
+        id: 1,
         previewUrl: 'https://images.unsplash.com/photo-1693711942336-f4f9963bd364?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2838&q=80',
         name: 'Name 1',
         year: 2023
@@ -14,12 +31,12 @@ export default {
   },
   mutations: {
     addCinema: (state, payload) => {
+      payload.id = genHash()
       state.films.push(payload)
     }
   },
   actions: {
     saveCinema: (store, payload) => new Promise(() => {
-      console.log(payload)
       store.commit('addCinema', payload)
     })
   },

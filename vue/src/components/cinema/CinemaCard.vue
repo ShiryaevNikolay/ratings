@@ -22,7 +22,10 @@ export default {
   methods: {
     openCinemaDetails () {
       this.$router.push({
-        name: RouteNames.CINEMA_DETAILS
+        name: RouteNames.CINEMA_DETAILS,
+        params: {
+          id: this.cinema.id
+        }
       })
     }
   }
