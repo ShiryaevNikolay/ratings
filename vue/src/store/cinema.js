@@ -19,6 +19,7 @@ export default {
   },
   actions: {
     saveCinema: (store, payload) => new Promise(() => {
+      console.log(payload)
       store.commit('addCinema', payload)
     })
   },

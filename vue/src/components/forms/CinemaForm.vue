@@ -10,7 +10,7 @@
       <el-input v-model="form.previewUrl" placeholder="Please input preview URL" />
     </div>
     <div class="cinema-form__control">
-      <el-button type="primary" @click="() => saveCinema()">Добавить фильм</el-button>
+      <el-button type="primary" @click="() => addFilm()">Добавить фильм</el-button>
     </div>
   </div>
 </template>
@@ -28,6 +28,15 @@ export default {
         year: '',
         previewUrl: ''
       }
+    }
+  },
+  methods: {
+    addFilm () {
+      this.saveCinema({
+        previewUrl: this.form.previewUrl,
+        name: this.form.name,
+        year: this.form.year
+      })
     }
   }
 }
