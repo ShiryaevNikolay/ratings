@@ -5,7 +5,9 @@
       <button @click="() => openHelpModal()">Open modal</button>
       <CinemaForm />
       <div class="control">
-        <el-button type="primary" @click="() => openListCinema()" plain>Показать список фильмов</el-button>
+        <RouterLink :to="{ name: url.listCinema }">
+          <el-button type="primary" plain>Показать список фильмов</el-button>
+        </RouterLink>
       </div>
     </section>
   </PageLayout>
@@ -16,19 +18,21 @@ import PageLayout from '../parts/PageLayout'
 import { helpModal } from "@/mixins/modals";
 import CinemaForm from "../forms/CinemaForm"
 import { RouteNames } from '@/router/routes';
+import { RouterLink } from 'vue-router';
 
 export default {
   name: 'HomePage',
   mixins: [helpModal],
   components: {
     PageLayout,
-    CinemaForm
+    CinemaForm,
+    RouterLink
   },
-  methods: {
-    openListCinema() {
-      this.$router.push({
-        name: RouteNames.LIST_CINEMA
-      })
+  data () {
+    return {
+      url: {
+        listCinema: RouteNames.LIST_CINEMA
+      }
     }
   }
 }
