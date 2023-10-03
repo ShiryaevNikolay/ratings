@@ -34,6 +34,14 @@ export default {
     addCinema: (state, payload) => {
       payload.id = genHash()
       state.films.push(payload)
+    },
+    // Удаление фильма по id
+    removeCinema: (state, payload) => {
+      state.films = state.films.filter((cinema) => cinema.id != payload)
+    },
+    // Редактирование фильма. payload хранит id и cinema
+    editCinema: (state, payload) => {
+      state.films = state.films.map((cinema) => cinema.id == payload.id ? payload.cinema : cinema)
     }
   },
   actions: {
