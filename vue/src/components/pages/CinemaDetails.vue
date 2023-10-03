@@ -1,30 +1,29 @@
 <template>
   <PageLayout>
     <section class="p-16">
-      <div class="cinema-container">
-        <img class="cinema-container__image" :src="cinema.previewUrl" />
-        <ul class="cinema-container__content">
-          <li class="cinema-container__name">{{ cinema.name }}</li>
-          <li class="cinem-container__year">{{ cinema.year }}</li>
-        </ul>
-      </div>
+      <CinemaCard :cinema="cinema"/>
     </section>
   </PageLayout>
 </template>
 
 <script>
 import PageLayout from '../parts/PageLayout'
+import CinemaCard from "../cinema/CinemaCard.vue"
 import { helpCinema } from "@/mixins/cinema";
 
 export default {
   name: 'CinemaDetails',
   mixins: [helpCinema],
   components: {
-    PageLayout
+    PageLayout,
+    CinemaCard
   },
   data () {
     return {
-      cinema: Object
+      cinema: {
+        type: Object,
+        default: null
+      }
     }
   },
   mounted () {
@@ -34,15 +33,16 @@ export default {
 }
 </script>
 
-<style lang="less">
-ul {
-  display: inline-block;
-  padding: 0px;
-  margin: 0px;
-  list-style-type: none;
-}
+<style scoped lang="less">
+.cinema-details {
 
-.cinema-container {
+  ul {
+    display: inline-block;
+    padding: 0px;
+    margin: 0px;
+    list-style-type: none;
+  }
+
   &__image {
     max-height: 300px;
   }
