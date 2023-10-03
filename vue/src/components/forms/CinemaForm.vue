@@ -32,11 +32,7 @@ export default {
   },
   methods: {
     addFilm () {
-      this.saveCinema({
-        previewUrl: this.form.previewUrl,
-        name: this.form.name,
-        year: this.form.year
-      })
+      this.saveCinema(this.form)
     }
   }
 }
