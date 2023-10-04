@@ -30,10 +30,6 @@ export default {
     list-style-type: none;
   }
 
-  &:hover {
-    background-color: rgba(0, 0, 0, 0.05);
-  }
-
   &__image {
     max-height: 200px;
   }

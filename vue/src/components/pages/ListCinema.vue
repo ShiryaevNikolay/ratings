@@ -2,7 +2,7 @@
   <PageLayout>
     <section class="p-16">
       <h1>Фильмы</h1>
-      <div v-for="cinema in getFilms" :key="cinema.id">
+      <div v-for="cinema in getFilms" :key="cinema.id" class="cinema-item">
         <RouterLink :to="{ name: url.cinemaDetails, params: { id: cinema.id }}">
           <CinemaCard :cinema="cinema" />
         </RouterLink>
@@ -35,3 +35,11 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.cinema-item {
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+}
+</style>
