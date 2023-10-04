@@ -26,28 +26,3 @@ export default {
   }
 }
 </script>
-
-<style scoped lang="less">
-.cinema-details {
-
-  ul {
-    display: inline-block;
-    padding: 0px;
-    margin: 0px;
-    list-style-type: none;
-  }
-
-  &__image {
-    max-height: 300px;
-  }
-
-  &__content {
-    margin: 16px;
-    vertical-align: top;
-  }
-
-  &__name {
-    margin-bottom: 16px;
-  }
-}
-</style>
