@@ -1,5 +1,5 @@
 <template>
-  <div class="cinema-card">
+  <div v-if="cinema" class="cinema-card">
     <img class="cinema-card__image" :src="cinema.previewUrl" />
     <ul class="cinema-card__content">
       <li class="cinema-card__name">{{ cinema.name }}</li>
