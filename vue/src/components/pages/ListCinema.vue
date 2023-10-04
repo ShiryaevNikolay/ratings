@@ -3,7 +3,7 @@
     <section class="p-16">
       <h1>Фильмы</h1>
       <div v-for="cinema in getFilms" :key="cinema.id" class="cinema-item">
-        <RouterLink :to="{ name: url.cinemaDetails, params: { id: cinema.id }}">
+        <RouterLink :to="{ name: routeNames.CINEMA_DETAILS, params: { id: cinema.id }}">
           <CinemaCard :cinema="cinema" />
         </RouterLink>
       </div>
@@ -26,17 +26,15 @@ export default {
     CinemaCard,
     RouterLink
   },
-  data () {
-    return {
-      url: {
-        cinemaDetails: RouteNames.CINEMA_DETAILS
-      }
+  computed: {
+    routeNames () {
+      return RouteNames
     }
   }
 }
 </script>
 
-<style scoped>
+<style scoped lang="less">
 .cinema-item {
   &:hover {
     background-color: rgba(0, 0, 0, 0.05);

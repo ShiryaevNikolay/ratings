@@ -18,17 +18,11 @@ export default {
     PageLayout,
     CinemaCard
   },
-  data () {
-    return {
-      cinema: {
-        type: Object,
-        default: null
-      }
+  computed: {
+    cinema () {
+      const cinemaId = this.$route.params.id
+      return this.getFilm(cinemaId)
     }
-  },
-  mounted () {
-    const cinemaId = this.$route.params.id
-    this.cinema = this.getFilm(cinemaId)
   }
 }
 </script>

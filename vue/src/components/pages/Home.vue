@@ -5,7 +5,7 @@
       <button @click="() => openHelpModal()">Open modal</button>
       <CinemaForm />
       <div class="control">
-        <RouterLink :to="{ name: url.listCinema }">
+        <RouterLink :to="{ name: routeNames.LIST_CINEMA }">
           <el-button type="primary" plain>Показать список фильмов</el-button>
         </RouterLink>
       </div>
@@ -28,11 +28,9 @@ export default {
     CinemaForm,
     RouterLink
   },
-  data () {
-    return {
-      url: {
-        listCinema: RouteNames.LIST_CINEMA
-      }
+  computed: {
+    routeNames () {
+      return RouteNames
     }
   }
 }
