@@ -23,19 +23,15 @@ export default {
 .cinema-card {
   margin-top: 16px;
 
-  ul {
-    display: inline-block;
-    padding: 0px;
-    margin: 16px;
-    list-style-type: none;
-  }
-
   &__image {
     max-height: 200px;
   }
 
   &__content {
+    display: inline-block;
+    padding: 0px;
     margin: 16px;
+    list-style-type: none;
     vertical-align: top;
   }
 
