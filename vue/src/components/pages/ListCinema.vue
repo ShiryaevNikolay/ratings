@@ -3,9 +3,15 @@
     <section class="p-16">
       <h1>Фильмы</h1>
       <div v-for="cinema in getFilms" :key="cinema.id" class="cinema-item">
-        <RouterLink :to="{ name: routeNames.CINEMA_DETAILS, params: { id: cinema.id }}">
+        <RouterLink :to="{ name: routeNames.CINEMA_DETAILS, params: { id: cinema.id } }">
           <CinemaCard :cinema="cinema" />
         </RouterLink>
+        <div class="cinema-item__button">
+          <el-button type="primary" icon="el-icon-edit" circle></el-button>
+        </div>
+        <div class="cinema-item__button cinema-item__button_delete">
+          <el-button type="danger" icon="el-icon-delete" circle></el-button>
+        </div>
       </div>
     </section>
   </PageLayout>
@@ -27,7 +33,7 @@ export default {
     RouterLink
   },
   computed: {
-    routeNames () {
+    routeNames() {
       return RouteNames
     }
   }
@@ -36,8 +42,21 @@ export default {
 
 <style scoped lang="less">
 .cinema-item {
-  &:hover {
-    background-color: rgba(0, 0, 0, 0.05);
+  position: relative;
+
+  // &:hover {
+  //   background-color: rgba(0, 0, 0, 0.05);
+  // }
+
+  &__button {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+
+    &_delete {
+      top: 40px;
+      margin-top: 16px;
+    }
   }
 }
 </style>
