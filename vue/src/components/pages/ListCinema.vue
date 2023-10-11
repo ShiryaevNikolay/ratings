@@ -35,7 +35,7 @@ export default {
     RouterLink
   },
   computed: {
-    routeNames() {
+    routeNames () {
       return RouteNames
     }
   },

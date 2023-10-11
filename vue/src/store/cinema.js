@@ -24,7 +24,8 @@ export default {
         name: 'Тест',
         originName: 'Ориникальный тест',
         date: '2020-07-03',
-        producer: 'Имя режиссера'
+        producer: 'Имя режиссера',
+        score: 4
       },
     ]
   },
