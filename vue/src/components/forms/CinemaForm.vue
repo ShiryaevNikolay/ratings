@@ -7,6 +7,9 @@
       <el-input v-model="form.originName" placeholder="Оригинальное название" />
     </div>
     <div class="cinema-form__control">
+      <el-input v-model="form.producer" placeholder="Режиссер" />
+    </div>
+    <div class="cinema-form__control">
       <el-date-picker v-model="form.date" type="date" value-format="yyyy-MM-dd" placeholder="Дата выхода фильма" />
     </div>
     <div class="cinema-form__control">
@@ -33,6 +36,7 @@ export default {
       form: {
         name: '',
         originName: '',
+        producer: '',
         date: '',
         previewUrl: ''
       }
