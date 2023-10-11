@@ -12,7 +12,7 @@
           </RouterLink>
         </div>
         <div class="cinema-item__button cinema-item__button_delete">
-          <el-button type="danger" icon="el-icon-delete" circle></el-button>
+          <el-button type="danger" @click="() => deleteCinema(cinema)" icon="el-icon-delete" circle></el-button>
         </div>
       </div>
     </section>
@@ -37,6 +37,11 @@ export default {
   computed: {
     routeNames() {
       return RouteNames
+    }
+  },
+  methods: {
+    deleteCinema (cinema) {
+      this.removeCinema(cinema.id)
     }
   }
 }

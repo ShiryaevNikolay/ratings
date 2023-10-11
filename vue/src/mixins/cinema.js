@@ -4,7 +4,8 @@ export const helpCinema = {
   methods: {
     ...mapActions('cinema', [
       'saveCinema',
-      'editCinema'
+      'editCinema',
+      'removeCinema'
     ])
   },
   computed: {

@@ -49,6 +49,9 @@ export default {
     saveCinema: (store, payload) => new Promise(() => {
       store.commit('addCinema', payload)
     }),
+    removeCinema: (store, payload) => new Promise(() => {
+      store.commit('removeCinema', payload)
+    }),
     editCinema: (store, payload) => new Promise(() => {
       store.commit('editCinema', payload)
     })
