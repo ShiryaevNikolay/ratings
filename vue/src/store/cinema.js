@@ -41,7 +41,6 @@ export default {
     removeCinema: (state, payload) => {
       state.films = state.films.filter((cinema) => cinema.id != payload)
     },
-    // Редактирование фильма. payload хранит id и cinema
     editCinema: (state, payload) => {
       state.films = state.films.map((cinema) => cinema.id == payload.id ? payload : cinema)
     }
@@ -49,6 +48,9 @@ export default {
   actions: {
     saveCinema: (store, payload) => new Promise(() => {
       store.commit('addCinema', payload)
+    }),
+    editCinema: (store, payload) => new Promise(() => {
+      store.commit('editCinema', payload)
     })
   },
 }

@@ -34,27 +34,27 @@ export default {
   data() {
     return {
       form: {
-        name: '',
-        originName: '',
-        producer: '',
-        date: '',
-        previewUrl: ''
+        name: this.cinema ? this.cinema.name : '',
+        originName: this.cinema ? this.cinema.originName : '',
+        producer: this.cinema ? this.cinema.producer : '',
+        date: this.cinema ? this.cinema.date : '',
+        previewUrl: this.cinema ? this.cinema.previewUrl : ''
       }
     }
   },
   methods: {
-    handleClick() {
+    handleClick () {
       if (this.cinema) {
         this.editFilm()
       } else {
         this.addFilm()
       }
     },
-    editFilm() {
-      const cinemaWithId = this.form['id'] = this.cinema.id
-      this.editCinema(cinemaWithId)
+    editFilm () {
+      this.form.id = this.cinema.id
+      this.editCinema(this.form)
     },
-    addFilm() {
+    addFilm () {
       this.saveCinema(this.form)
     }
   },
