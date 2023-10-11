@@ -4,11 +4,10 @@ import router from './router';
 import Vuex from 'vuex'
 import storeRoot from './store'
 import { sync } from "vuex-router-sync";
-import { Input, Button } from 'element-ui';
+import UiElement from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 
-Vue.use(Input)
-Vue.use(Button)
+Vue.use(UiElement)
 Vue.use(Vuex)
 Vue.config.productionTip = false
 

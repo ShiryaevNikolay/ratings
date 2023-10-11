@@ -4,7 +4,10 @@
       <el-input v-model="form.name" placeholder="Название фильма" />
     </div>
     <div class="cinema-form__control">
-      <el-input v-model="form.year" placeholder="Год" />
+      <el-input v-model="form.originName" placeholder="Оригинальное название" />
+    </div>
+    <div class="cinema-form__control">
+      <el-date-picker v-model="form.date" type="date" value-format="yyyy-MM-dd" placeholder="Дата выхода фильма" />
     </div>
     <div class="cinema-form__control">
       <el-input v-model="form.previewUrl" placeholder="Ссылка на обложку" />
@@ -29,29 +32,30 @@ export default {
     return {
       form: {
         name: '',
-        year: '',
+        originName: '',
+        date: '',
         previewUrl: ''
       }
     }
   },
   methods: {
-    handleClick () {
+    handleClick() {
       if (this.cinema) {
         this.editFilm()
       } else {
         this.addFilm()
       }
     },
-    editFilm () {
+    editFilm() {
       const cinemaWithId = this.form['id'] = this.cinema.id
       this.editCinema(cinemaWithId)
     },
-    addFilm () {
+    addFilm() {
       this.saveCinema(this.form)
     }
   },
   computed: {
-    getButtonText () {
+    getButtonText() {
       return this.cinema ? "Редактировать" : "Добавить"
     }
   }
