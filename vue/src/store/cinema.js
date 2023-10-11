@@ -41,7 +41,7 @@ export default {
     },
     // Редактирование фильма. payload хранит id и cinema
     editCinema: (state, payload) => {
-      state.films = state.films.map((cinema) => cinema.id == payload.id ? payload.cinema : cinema)
+      state.films = state.films.map((cinema) => cinema.id == payload.id ? payload : cinema)
     }
   },
   actions: {

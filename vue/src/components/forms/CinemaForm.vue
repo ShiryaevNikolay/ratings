@@ -1,16 +1,16 @@
 <template>
   <div class="cinema-form">
     <div class="cinema-form__control">
-      <el-input v-model="form.name" placeholder="Please input name" />
+      <el-input v-model="form.name" placeholder="Название фильма" />
     </div>
     <div class="cinema-form__control">
-      <el-input v-model="form.year" placeholder="Please input year" />
+      <el-input v-model="form.year" placeholder="Год" />
     </div>
     <div class="cinema-form__control">
-      <el-input v-model="form.previewUrl" placeholder="Please input preview URL" />
+      <el-input v-model="form.previewUrl" placeholder="Ссылка на обложку" />
     </div>
     <div class="cinema-form__control">
-      <el-button type="primary" @click="() => addFilm()">Добавить фильм</el-button>
+      <el-button type="primary" @click="() => handleClick()">{{ getButtonText }}</el-button>
     </div>
   </div>
 </template>
@@ -21,6 +21,10 @@ import { helpCinema } from "@/mixins/cinema";
 export default {
   name: 'FormInput',
   mixins: [helpCinema],
+  props: {
+    cinema: Object,
+    default: () => (null)
+  },
   data() {
     return {
       form: {
@@ -31,8 +35,24 @@ export default {
     }
   },
   methods: {
+    handleClick () {
+      if (this.cinema) {
+        this.editFilm()
+      } else {
+        this.addFilm()
+      }
+    },
+    editFilm () {
+      const cinemaWithId = this.form['id'] = this.cinema.id
+      this.editCinema(cinemaWithId)
+    },
     addFilm () {
       this.saveCinema(this.form)
+    }
+  },
+  computed: {
+    getButtonText () {
+      return this.cinema ? "Редактировать" : "Добавить"
     }
   }
 }

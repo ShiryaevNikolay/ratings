@@ -3,7 +3,8 @@ import { mapGetters, mapActions } from "vuex";
 export const helpCinema = {
   methods: {
     ...mapActions('cinema', [
-      'saveCinema'
+      'saveCinema',
+      'editCinema'
     ])
   },
   computed: {

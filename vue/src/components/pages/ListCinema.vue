@@ -7,7 +7,9 @@
           <CinemaCard :cinema="cinema" />
         </RouterLink>
         <div class="cinema-item__button">
-          <el-button type="primary" icon="el-icon-edit" circle></el-button>
+          <RouterLink :to="{ name: routeNames.EDIT_CINEMA, params: { id: cinema.id } }">
+            <el-button type="primary" icon="el-icon-edit" circle></el-button>
+          </RouterLink>
         </div>
         <div class="cinema-item__button cinema-item__button_delete">
           <el-button type="danger" icon="el-icon-delete" circle></el-button>
@@ -43,10 +45,6 @@ export default {
 <style scoped lang="less">
 .cinema-item {
   position: relative;
-
-  // &:hover {
-  //   background-color: rgba(0, 0, 0, 0.05);
-  // }
 
   &__button {
     position: absolute;
