@@ -3,7 +3,9 @@
     <img class="cinema-card__image" :src="cinema.previewUrl" />
     <ul class="cinema-card__content">
       <li class="cinema-card__name">{{ cinema.name }}</li>
-      <li class="cinem-card__year">{{ cinema.year }}</li>
+      <li class="cinem-card__year">{{ cinema.originName }}</li>
+      <li class="cinem-card__year">{{ cinema.producer }}</li>
+      <li class="cinem-card__year">{{ cinema.date }}</li>
     </ul>
   </div>
 </template>
