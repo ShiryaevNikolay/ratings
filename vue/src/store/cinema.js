@@ -34,27 +34,15 @@ export default {
     getFilm: (state) => (id) => state.films.find((cinema) => cinema.id == id)
   },
   mutations: {
-    addCinema: (state, payload) => {
+    addCinema (state, payload) {
       payload.id = genHash()
       state.films.push(payload)
     },
-    // Удаление фильма по id
-    removeCinema: (state, payload) => {
+    removeCinema (state, payload) {
       state.films = state.films.filter((cinema) => cinema.id != payload)
     },
-    editCinema: (state, payload) => {
+    editCinema (state, payload) {
       state.films = state.films.map((cinema) => cinema.id == payload.id ? payload : cinema)
     }
-  },
-  actions: {
-    saveCinema: (store, payload) => new Promise(() => {
-      store.commit('addCinema', payload)
-    }),
-    removeCinema: (store, payload) => new Promise(() => {
-      store.commit('removeCinema', payload)
-    }),
-    editCinema: (store, payload) => new Promise(() => {
-      store.commit('editCinema', payload)
-    })
-  },
+  }
 }

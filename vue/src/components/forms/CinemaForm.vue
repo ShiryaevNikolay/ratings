@@ -20,21 +20,20 @@
       <el-rate v-model="form.score" :colors="getSroceIcons" class="cinema-form__field" />
     </div>
     <div class="cinema-form__field">
-      <el-button type="primary" @click="() => handleClick()">{{ getButtonText }}</el-button>
+      <el-button type="primary" @click="() => handleClick()">{{ btnText }}</el-button>
     </div>
   </div>
 </template>
 
 <script>
-import { helpCinema } from "@/mixins/cinema";
-import cinema from "@/store/cinema";
-
 export default {
   name: 'FormInput',
-  mixins: [helpCinema],
   props: {
-    cinema: Object,
-    default: () => (null)
+    btnText: String,
+    cinema: {
+      type: Object,
+      default: () => (null)
+    }
   },
   data() {
     return {
@@ -49,32 +48,18 @@ export default {
     }
   },
   mounted: function () {
-    if (cinema) {
+    if (this.cinema) {
       this.form  = this.cinema
     }
   },
   computed: {
-    getButtonText () {
-      return this.cinema ? "Редактировать" : "Добавить"
-    },
     getSroceIcons () {
       return ['#99A9BF', '#F7BA2A', '#FF9900']
     }
   },
   methods: {
     handleClick() {
-      if (this.cinema) {
-        this.editFilm()
-      } else {
-        this.addFilm()
-      }
-    },
-    editFilm() {
-      this.form.id = this.cinema.id
-      this.editCinema(this.form)
-    },
-    addFilm() {
-      this.saveCinema(this.form)
+      this.$emit('btnClick', this.form)
     }
   }
 }
