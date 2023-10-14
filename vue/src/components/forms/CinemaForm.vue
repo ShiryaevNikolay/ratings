@@ -58,7 +58,7 @@ export default {
       return this.cinema ? "Редактировать" : "Добавить"
     },
     getSroceIcons () {
-      return ['#99A9BF', '#F7BA2A', '#FF9900'] // same as { 2: 'icon-rate-face-1', 4: { value: 'icon-rate-face-2', excluded: true }, 5: 'icon-rate-face-3' }
+      return ['#99A9BF', '#F7BA2A', '#FF9900']
     }
   },
   methods: {
