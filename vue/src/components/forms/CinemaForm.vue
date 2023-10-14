@@ -27,6 +27,7 @@
 
 <script>
 import { helpCinema } from "@/mixins/cinema";
+import cinema from "@/store/cinema";
 
 export default {
   name: 'FormInput',
@@ -38,13 +39,26 @@ export default {
   data() {
     return {
       form: {
-        name: this.cinema ? this.cinema.name : '',
-        originName: this.cinema ? this.cinema.originName : '',
-        producer: this.cinema ? this.cinema.producer : '',
-        date: this.cinema ? this.cinema.date : '',
-        previewUrl: this.cinema ? this.cinema.previewUrl : '',
-        score: this.cinema ? this.cinema.score : null
+        name: '',
+        originName: '',
+        producer: '',
+        date: '',
+        previewUrl: '',
+        score: null
       }
+    }
+  },
+  mounted: function () {
+    if (cinema) {
+      this.form  = this.cinema
+    }
+  },
+  computed: {
+    getButtonText () {
+      return this.cinema ? "Редактировать" : "Добавить"
+    },
+    getSroceIcons () {
+      return ['#99A9BF', '#F7BA2A', '#FF9900'] // same as { 2: 'icon-rate-face-1', 4: { value: 'icon-rate-face-2', excluded: true }, 5: 'icon-rate-face-3' }
     }
   },
   methods: {
@@ -61,14 +75,6 @@ export default {
     },
     addFilm() {
       this.saveCinema(this.form)
-    }
-  },
-  computed: {
-    getButtonText () {
-      return this.cinema ? "Редактировать" : "Добавить"
-    },
-    getSroceIcons () {
-      return ['#99A9BF', '#F7BA2A', '#FF9900'] // same as { 2: 'icon-rate-face-1', 4: { value: 'icon-rate-face-2', excluded: true }, 5: 'icon-rate-face-3' }
     }
   }
 }
