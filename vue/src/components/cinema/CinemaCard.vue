@@ -7,10 +7,10 @@
       </div>
     </div>
     <div class="cinema-card__info">
-      <div class="info-item">{{ cinema.name }}</div>
-      <div class="info-item">{{ cinema.originName }}</div>
-      <div class="info-item">{{ cinema.producer }}</div>
-      <div class="info-item">{{ cinema.date }}</div>
+      <div class="cinema-card__info__item">{{ cinema.name }}</div>
+      <div class="cinema-card__info__item">{{ cinema.originName }}</div>
+      <div class="cinema-card__info__item">{{ cinema.producer }}</div>
+      <div class="cinema-card__info__item">{{ cinema.date }}</div>
     </div>
   </div>
 </template>
@@ -49,9 +49,11 @@ export default {
   &__score {
     margin-top: 8px;
   }
-}
 
-.info-item {
-  margin-bottom: 16px;
+  &__info {
+    &__item {
+      margin-bottom: 16px;
+    }
+  }
 }
 </style>
