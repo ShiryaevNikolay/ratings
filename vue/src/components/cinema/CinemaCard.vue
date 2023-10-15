@@ -24,10 +24,10 @@ export default {
     default: () => (null)
   },
   computed: {
-    getScore() {
+    getScore () {
       return this.cinema ? this.cinema.score : 0
     },
-    getSroceIcons() {
+    getSroceIcons () {
       return ['#99A9BF', '#F7BA2A', '#FF9900']
     }
   }

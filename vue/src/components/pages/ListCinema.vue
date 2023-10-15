@@ -35,12 +35,12 @@ export default {
     RouterLink
   },
   computed: {
-    routeNames() {
+    routeNames () {
       return RouteNames
     }
   },
   methods: {
-    deleteCinema(cinema) {
+    deleteCinema (cinema) {
       this.removeCinema(cinema.id)
     }
   }
