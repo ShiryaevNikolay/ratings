@@ -49,7 +49,10 @@ export default {
   },
   mounted: function () {
     if (this.cinema) {
-      this.form  = this.cinema
+      this.form = {
+        ...this.form,
+        ...this.cinema
+      }
     }
   },
   computed: {
