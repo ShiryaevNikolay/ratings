@@ -3,16 +3,16 @@
     <section class="p-16">
       <h1>Фильмы</h1>
       <div v-for="cinema in getFilms" :key="cinema.id" class="cinema-item">
-        <RouterLink :to="{ name: routeNames.CINEMA_DETAILS, params: { id: cinema.id } }">
-          <CinemaCard :cinema="cinema" />
-        </RouterLink>
-        <div class="cinema-item__button">
-          <RouterLink :to="{ name: routeNames.EDIT_CINEMA, params: { id: cinema.id } }">
-            <el-button type="primary" icon="el-icon-edit" circle></el-button>
+        <div class="cinema-item__cinema">
+          <RouterLink :to="{ name: routeNames.CINEMA_DETAILS, params: { id: cinema.id } }">
+            <CinemaCard :cinema="cinema" />
           </RouterLink>
         </div>
-        <div class="cinema-item__button cinema-item__button_delete">
-          <el-button type="danger" @click="() => deleteCinema(cinema)" icon="el-icon-delete" circle></el-button>
+        <div class="cinema-item__buttons">
+          <RouterLink :to="{ name: routeNames.EDIT_CINEMA, params: { id: cinema.id } }">
+            <ElButton type="primary" icon="el-icon-edit" circle />
+          </RouterLink>
+          <ElButton type="danger" icon="el-icon-delete" circle @click="() => deleteCinema(cinema)" />
         </div>
       </div>
     </section>
@@ -35,12 +35,12 @@ export default {
     RouterLink
   },
   computed: {
-    routeNames () {
+    routeNames() {
       return RouteNames
     }
   },
   methods: {
-    deleteCinema (cinema) {
+    deleteCinema(cinema) {
       this.removeCinema(cinema.id)
     }
   }
@@ -49,17 +49,14 @@ export default {
 
 <style scoped lang="less">
 .cinema-item {
-  position: relative;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  margin-bottom: 20px;
 
-  &__button {
-    position: absolute;
-    top: 0px;
-    right: 0px;
-
-    &_delete {
-      top: 40px;
-      margin-top: 16px;
-    }
+  &__buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
   }
 }
 </style>
