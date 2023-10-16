@@ -4,6 +4,7 @@ import HomePage from '../components/pages/Home.vue'
 import ListCinema from '../components/pages/ListCinema.vue'
 import EditCinema from '../components/pages/EditCinema.vue'
 import CinemaDetails from '../components/pages/CinemaDetails.vue'
+import CreateCinema from '../components/pages/CreateCinema.vue'
 import { RouteNames } from './routes'
 
 Vue.use(VueRouter)
@@ -25,9 +26,14 @@ const routes = [
     component: CinemaDetails
   },
   {
-    path: '/edit/cinema/:id',
+    path: '/cinema/:id/edit',
     name: RouteNames.EDIT_CINEMA,
     component: EditCinema
+  },
+  {
+    path: '/cinema/create',
+    name: RouteNames.CREATE_CINEMA,
+    component: CreateCinema
   }
 ]
 
