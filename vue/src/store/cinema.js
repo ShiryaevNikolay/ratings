@@ -31,7 +31,25 @@ const getStateFromLocalStorage = () => {
 export default {
   namespaced: true,
   state: {
-    films: getStateFromLocalStorage()
+    films: getStateFromLocalStorage(),
+    filters: [
+      {
+        id: 0,
+        label: "Без фильтра"
+      },
+      {
+        id: 1,
+        label: "По рейтингу"
+      },
+      {
+        id: 2,
+        label: "По дате"
+      },
+      {
+        id: 3,
+        label: "По названию"
+      }
+    ]
     // films: [
     //   {
     //     id: 1,
@@ -54,8 +72,22 @@ export default {
     // ]
   },
   getters: {
+    getFilters: (state) => state.filters,
     getFilms: (state) => state.films,
-    getFilm: (state) => (id) => state.films.find((cinema) => cinema.id == id)
+    getFilm: (state) => (id) => state.films.find((cinema) => cinema.id == id),
+    getFilmsWithFilter: (state) => (filter) => {
+      const films = state.films
+      switch (filter.id) {
+        case 1:
+          return films.sort(film => film.score)
+        case 2:
+          return films.sort(film => film.date)
+        case 3:
+          return films.sort(film => film.name)
+        default:
+          return films
+      }
+    }
   },
   mutations: {
     addCinema (state, payload) {

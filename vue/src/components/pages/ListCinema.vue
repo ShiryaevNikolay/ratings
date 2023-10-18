@@ -1,7 +1,21 @@
 <template>
   <PageLayout>
     <section class="p-16">
-      <h1>Фильмы</h1>
+      <div class="cinema-header">
+        <h1>Фильмы</h1>
+        <div class="cinema-header__filters">
+          <div>
+            <ElSelect v-model="selectedFilterId" placeholder="Фильтр">
+              <ElOption
+                v-for="filter in filters"
+                :key="filter.id"
+                :label="filter.label"
+                :value="filter.id">
+              </ElOption>
+            </ElSelect>
+          </div>
+        </div>
+      </div>
       <div v-for="cinema in getFilms" :key="cinema.id" class="cinema-item">
         <div class="cinema-item__cinema">
           <RouterLink :to="{ name: routeNames.CINEMA_DETAILS, params: { id: cinema.id } }">
@@ -25,6 +39,7 @@ import { helpCinema } from "@/mixins/cinema";
 import CinemaCard from "../cinema/CinemaCard.vue"
 import { RouterLink } from 'vue-router';
 import { RouteNames } from '@/router/routes';
+import { mapState } from 'vuex';
 
 export default {
   name: 'ListCinema',
@@ -34,7 +49,15 @@ export default {
     CinemaCard,
     RouterLink
   },
+  data () {
+    return {
+      selectedFilterId: null
+    }
+  },
   computed: {
+    ...mapState('cinema', [
+      'filters'
+    ]),
     routeNames () {
       return RouteNames
     }
@@ -43,11 +66,21 @@ export default {
     deleteCinema (cinema) {
       this.removeCinema(cinema.id)
     }
+  },
+  mounted () {
+    this.selectedFilterId = this.filters[0].id
   }
 }
 </script>
 
 <style scoped lang="less">
+.cinema-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-content: center;
+}
+
 .cinema-item {
   display: grid;
   grid-template-columns: 1fr auto;
