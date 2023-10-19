@@ -10,15 +10,17 @@
       <div class="cinema-card__info__item">{{ cinema.name }}</div>
       <div class="cinema-card__info__item">{{ cinema.originName }}</div>
       <div class="cinema-card__info__item">{{ cinema.producer }}</div>
-      <div class="cinema-card__info__item">{{ getFormattedDate }}</div>
+      <div class="cinema-card__info__item">{{ cinema.date | ddMMyyyyFormat }}</div>
     </div>
   </div>
 </template>
 
 <script>
+import { helpCommon } from "@/mixins/common"
 
 export default {
   name: 'CinemaCard',
+  mixins: [helpCommon],
   props: {
     cinema: Object,
     default: () => (null)
@@ -29,14 +31,6 @@ export default {
     },
     getSroceIcons () {
       return ['#99A9BF', '#F7BA2A', '#FF9900']
-    },
-    getFormattedDate () {
-      const date = new Date(this.cinema.date)
-      return [
-        ('0' + date.getDate()).slice(-2),
-        ('0' + (date.getMonth() + 1)).slice(-2),
-        date.getFullYear()
-      ].join('.')
     }
   }
 }
