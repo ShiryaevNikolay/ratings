@@ -5,12 +5,12 @@
         <h1>Фильмы</h1>
         <div class="cinema-header__filters">
           <div v-if="isSelectedFilter">
-            <ElSelect v-model="selectedFilterSortingTypeId" placeholder="Тип сортировки">
+            <ElSelect v-model="needReverce" placeholder="Тип сортировки">
               <ElOption
                 v-for="filterSortingType in filterSortingTypes"
-                :key="filterSortingType.id"
+                :key="filterSortingType.value"
                 :label="filterSortingType.label"
-                :value="filterSortingType.id">
+                :value="filterSortingType.value">
               </ElOption>
             </ElSelect>
           </div>
@@ -26,7 +26,7 @@
           </div>
         </div>
       </div>
-      <div v-for="cinema in getFilms" :key="cinema.id" class="cinema-item">
+      <div v-for="cinema in films" :key="cinema.id" class="cinema-item">
         <div class="cinema-item__cinema">
           <RouterLink :to="{ name: routeNames.CINEMA_DETAILS, params: { id: cinema.id } }">
             <CinemaCard :cinema="cinema" />
@@ -49,7 +49,7 @@ import { helpCinema } from "@/mixins/cinema";
 import CinemaCard from "../cinema/CinemaCard.vue"
 import { RouterLink } from 'vue-router';
 import { RouteNames } from '@/router/routes';
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 
 export default {
   name: 'ListCinema',
@@ -62,7 +62,7 @@ export default {
   data() {
     return {
       selectedFilterId: null,
-      selectedFilterSortingTypeId: null
+      needReverce: false
     }
   },
   computed: {
@@ -70,11 +70,24 @@ export default {
       'filters',
       'filterSortingTypes'
     ]),
+    ...mapGetters('cinema', [
+      'getFilmsWithFilter'
+    ]),
     routeNames () {
       return RouteNames
     },
     isSelectedFilter () {
       return this.selectedFilterId != 0
+    },
+    needToReverceList () {
+      if (this.selectedFilterId != 0) {
+        return this.needReverce
+      } else {
+        return false
+      }
+    },
+    films () {
+      return this.getFilmsWithFilter(this.selectedFilterId, this.needToReverceList)
     }
   },
   methods: {
@@ -84,7 +97,7 @@ export default {
   },
   mounted() {
     this.selectedFilterId = this.filters[0].id
-    this.selectedFilterSortingTypeId = this.filterSortingTypes[0].id
+    this.needReverce = this.filterSortingTypes[0].value
   }
 }
 </script>

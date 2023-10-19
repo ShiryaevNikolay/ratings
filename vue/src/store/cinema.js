@@ -52,11 +52,11 @@ export default {
     ],
     filterSortingTypes: [
       {
-        id: 0,
+        value: false,
         label: "По возрастанию"
       },
       {
-        id: 1,
+        value: true,
         label: "По убыванию"
       }
     ]
@@ -84,17 +84,23 @@ export default {
   getters: {
     getFilms: (state) => state.films,
     getFilm: (state) => (id) => state.films.find((cinema) => cinema.id == id),
-    getFilmsWithFilter: (state) => (filter) => {
-      const films = state.films
-      switch (filter.id) {
+    getFilmsWithFilter: (state) => (filterId, needReverce) => {
+      let films = state.films.slice()
+      switch (filterId) {
         case 1:
-          return films.sort(film => film.score)
+          films = films.sort((a, b) => a.score - b.score)
+          break 
         case 2:
-          return films.sort(film => film.date)
+          films = films.sort(film => film.date)
+          break
         case 3:
-          return films.sort(film => film.name)
-        default:
-          return films
+          films = films.sort((a, b) => a.name.localeCompare(b))
+          break
+      }
+      if (needReverce) {
+        return films.reverse()
+      } else {
+        return films
       }
     }
   },
