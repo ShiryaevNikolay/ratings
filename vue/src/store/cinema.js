@@ -19,66 +19,26 @@ const storeKey = 'CINEMA_STORE'
 const syncStateWithLocalStorage = (state) => {
   localStorage.setItem(storeKey, JSON.stringify(state.films))
 }
-const getStateFromLocalStorage = () => {
-  const films = localStorage.getItem(storeKey)
-  if (films) {
-    return JSON.parse(films)
-  } else {
-    return []
-  }
-}
 
 export default {
   namespaced: true,
   state: {
-    films: getStateFromLocalStorage(),
-    filters: [
-      {
-        id: 0,
-        label: "Без фильтра"
-      },
-      {
-        id: 1,
-        label: "По рейтингу"
-      },
-      {
-        id: 2,
-        label: "По дате"
-      },
-      {
-        id: 3,
-        label: "По названию"
-      }
-    ],
-    filterSortingTypes: [
-      {
-        value: false,
-        label: "По возрастанию"
-      },
-      {
-        value: true,
-        label: "По убыванию"
-      }
-    ]
+    films: JSON.parse(localStorage.getItem(storeKey)) || []
   },
   getters: {
     getFilms: (state) => state.films,
     getFilm: (state) => (id) => state.films.find((cinema) => cinema.id == id),
-    getFilmsWithFilter: (state) => (filterId, needReverce) => {
+    getFilmsWithFilter: (state) => (filter) => {
       let films = state.films.slice()
-      switch (filterId) {
-        case 1:
-          films = films.sort((a, b) => a.score - b.score)
-          break 
-        case 2:
-          films = films.sort()
-          break
-        case 3:
-          films = films.sort((a, b) => a.name.localeCompare(b))
-          break
-      }
-      if (needReverce) {
-        return films.reverse()
+      const field = filter.field
+      const needReverce = filter.needReverce
+      if (field) {
+        films.sort((a, b) => {
+          const field1 = a[field]
+          const field2 = b[field]
+          return typeof field1 == "number" ? field1 - field2 : field1.localeCompare(field2)
+        })
+        return needReverce ? films.reverse() : films
       } else {
         return films
       }

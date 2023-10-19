@@ -15,12 +15,12 @@
             </ElSelect>
           </div>
           <div>
-            <ElSelect v-model="selectedFilterId" placeholder="Фильтр">
+            <ElSelect v-model="selectedFilter" placeholder="Фильтр">
               <ElOption
                 v-for="filter in filters"
-                :key="filter.id"
+                :key="filter.field"
                 :label="filter.label"
-                :value="filter.id">
+                :value="filter.field">
               </ElOption>
             </ElSelect>
           </div>
@@ -49,7 +49,7 @@ import { helpCinema } from "@/mixins/cinema";
 import CinemaCard from "../cinema/CinemaCard.vue"
 import { RouterLink } from 'vue-router';
 import { RouteNames } from '@/router/routes';
-import { mapState, mapGetters } from 'vuex';
+import { mapGetters } from 'vuex';
 
 export default {
   name: 'ListCinema',
@@ -61,15 +61,39 @@ export default {
   },
   data() {
     return {
-      selectedFilterId: null,
-      needReverce: false
+      selectedFilter: null,
+      needReverce: false,
+      filters: [
+        {
+          field: null,
+          label: "Без фильтра"
+        },
+        {
+          field: "score",
+          label: "По рейтингу"
+        },
+        {
+          field: "date",
+          label: "По дате"
+        },
+        {
+          field: "name",
+          label: "По названию"
+        }
+      ],
+      filterSortingTypes: [
+        {
+          value: false,
+          label: "По возрастанию"
+        },
+        {
+          value: true,
+          label: "По убыванию"
+        }
+      ]
     }
   },
   computed: {
-    ...mapState('cinema', [
-      'filters',
-      'filterSortingTypes'
-    ]),
     ...mapGetters('cinema', [
       'getFilmsWithFilter'
     ]),
@@ -77,13 +101,16 @@ export default {
       return RouteNames
     },
     isSelectedFilter () {
-      return this.selectedFilterId != 0
+      return this.selectedFilter != null
     },
     needToReverceList () {
-      return this.selectedFilterId != 0 ? this.needReverce : false
+      return this.selectedFilter ? this.needReverce : false
     },
     films () {
-      return this.getFilmsWithFilter(this.selectedFilterId, this.needToReverceList)
+      return this.getFilmsWithFilter({
+        field: this.selectedFilter,
+        needReverce: this.needToReverceList
+      })
     }
   },
   methods: {
