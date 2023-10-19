@@ -2,7 +2,7 @@
   <PageLayout>
     <section class="p-16">
       <h1>Добавление рейтинга фильма</h1>
-      <CinemaForm :btnText="addCinemaBtnText" @btnClick="(cinema) => saveCinema(cinema)" />
+      <CinemaForm btnText="Добавить фильм" @btnClick="(cinema) => saveCinema(cinema)" />
     </section>
   </PageLayout>
 </template>
@@ -18,11 +18,6 @@ export default {
   components: {
     PageLayout,
     CinemaForm
-  },
-  computed: {
-    addCinemaBtnText () {
-      return "Добавить фильм"
-    }
   },
   methods: {
     saveCinema (cinema) {

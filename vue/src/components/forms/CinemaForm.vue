@@ -15,7 +15,8 @@
         type="date"
         value-format="timestamp"
         placeholder="Дата выхода фильма"
-        format="dd.MM.yyyy" />
+        format="dd.MM.yyyy"
+      />
     </div>
     <div class="cinema-form__field">
       <ElInput v-model="form.previewUrl" placeholder="Ссылка на обложку" />
@@ -34,7 +35,10 @@
 export default {
   name: 'FormInput',
   props: {
-    btnText: String,
+    btnText: {
+      type: String,
+      default: "Применить"
+    },
     cinema: {
       type: Object,
       default: () => (null)

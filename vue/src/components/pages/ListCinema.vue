@@ -80,11 +80,7 @@ export default {
       return this.selectedFilterId != 0
     },
     needToReverceList () {
-      if (this.selectedFilterId != 0) {
-        return this.needReverce
-      } else {
-        return false
-      }
+      return this.selectedFilterId != 0 ? this.needReverce : false
     },
     films () {
       return this.getFilmsWithFilter(this.selectedFilterId, this.needToReverceList)
