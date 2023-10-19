@@ -1,26 +1,31 @@
 <template>
   <div class="cinema-form">
     <div class="cinema-form__field">
-      <el-input v-model="form.name" placeholder="Название фильма" />
+      <ElInput v-model="form.name" placeholder="Название фильма" />
     </div>
     <div class="cinema-form__field">
-      <el-input v-model="form.originName" placeholder="Оригинальное название" />
+      <ElInput v-model="form.originName" placeholder="Оригинальное название" />
     </div>
     <div class="cinema-form__field">
-      <el-input v-model="form.producer" placeholder="Режиссер" />
+      <ElInput v-model="form.producer" placeholder="Режиссер" />
     </div>
     <div class="cinema-form__field">
-      <el-date-picker v-model="form.date" type="date" value-format="yyyy-MM-dd" placeholder="Дата выхода фильма" />
+      <ElDatePicker
+        v-model="form.date"
+        type="date"
+        value-format="timestamp"
+        placeholder="Дата выхода фильма"
+        format="dd.MM.yyyy" />
     </div>
     <div class="cinema-form__field">
-      <el-input v-model="form.previewUrl" placeholder="Ссылка на обложку" />
+      <ElInput v-model="form.previewUrl" placeholder="Ссылка на обложку" />
     </div>
     <div class="cinema-form__field">
       <span>Оценка фильма</span>
-      <el-rate v-model="form.score" :colors="getSroceIcons" class="cinema-form__field" />
+      <ElRate v-model="form.score" :colors="getSroceIcons" class="cinema-form__field" />
     </div>
     <div class="cinema-form__field">
-      <el-button type="primary" @click="() => handleClick()">{{ btnText }}</el-button>
+      <ElButton type="primary" @click="() => handleClick()">{{ btnText }}</ElButton>
     </div>
   </div>
 </template>
@@ -41,7 +46,7 @@ export default {
         name: '',
         originName: '',
         producer: '',
-        date: '',
+        date: null,
         previewUrl: '',
         score: null
       }

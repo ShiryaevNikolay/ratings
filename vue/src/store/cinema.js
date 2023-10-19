@@ -91,7 +91,7 @@ export default {
           films = films.sort((a, b) => a.score - b.score)
           break 
         case 2:
-          films = films.sort(film => film.date)
+          films = films.sort()
           break
         case 3:
           films = films.sort((a, b) => a.name.localeCompare(b))
