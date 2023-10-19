@@ -49,6 +49,16 @@ export default {
         id: 3,
         label: "По названию"
       }
+    ],
+    filterSortingTypes: [
+      {
+        id: 0,
+        label: "По возрастанию"
+      },
+      {
+        id: 1,
+        label: "По убыванию"
+      }
     ]
     // films: [
     //   {
@@ -72,7 +82,6 @@ export default {
     // ]
   },
   getters: {
-    getFilters: (state) => state.filters,
     getFilms: (state) => state.films,
     getFilm: (state) => (id) => state.films.find((cinema) => cinema.id == id),
     getFilmsWithFilter: (state) => (filter) => {

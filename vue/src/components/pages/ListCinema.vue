@@ -4,6 +4,16 @@
       <div class="cinema-header">
         <h1>Фильмы</h1>
         <div class="cinema-header__filters">
+          <div v-if="isSelectedFilter">
+            <ElSelect v-model="selectedFilterSortingTypeId" placeholder="Тип сортировки">
+              <ElOption
+                v-for="filterSortingType in filterSortingTypes"
+                :key="filterSortingType.id"
+                :label="filterSortingType.label"
+                :value="filterSortingType.id">
+              </ElOption>
+            </ElSelect>
+          </div>
           <div>
             <ElSelect v-model="selectedFilterId" placeholder="Фильтр">
               <ElOption
@@ -49,17 +59,22 @@ export default {
     CinemaCard,
     RouterLink
   },
-  data () {
+  data() {
     return {
-      selectedFilterId: null
+      selectedFilterId: null,
+      selectedFilterSortingTypeId: null
     }
   },
   computed: {
     ...mapState('cinema', [
-      'filters'
+      'filters',
+      'filterSortingTypes'
     ]),
     routeNames () {
       return RouteNames
+    },
+    isSelectedFilter () {
+      return this.selectedFilterId != 0
     }
   },
   methods: {
@@ -67,8 +82,9 @@ export default {
       this.removeCinema(cinema.id)
     }
   },
-  mounted () {
+  mounted() {
     this.selectedFilterId = this.filters[0].id
+    this.selectedFilterSortingTypeId = this.filterSortingTypes[0].id
   }
 }
 </script>
@@ -79,6 +95,13 @@ export default {
   flex-direction: row;
   justify-content: space-between;
   align-content: center;
+  margin-bottom: 16px;
+
+  &__filters {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+  }
 }
 
 .cinema-item {
