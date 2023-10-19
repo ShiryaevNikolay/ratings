@@ -7,7 +7,7 @@
           <div v-if="isSelectedFilter">
             <ElSelect v-model="needReverce" placeholder="Тип сортировки">
               <ElOption
-                v-for="filterSortingType in filterSortingTypes"
+                v-for="filterSortingType in filterOrder"
                 :key="filterSortingType.value"
                 :label="filterSortingType.label"
                 :value="filterSortingType.value">
@@ -81,7 +81,7 @@ export default {
           label: "По названию"
         }
       ],
-      filterSortingTypes: [
+      filterOrder: [
         {
           value: false,
           label: "По возрастанию"
@@ -120,7 +120,7 @@ export default {
   },
   mounted() {
     this.selectedFilterId = this.filters[0].id
-    this.needReverce = this.filterSortingTypes[0].value
+    this.needReverce = this.filterOrder[0].value
   }
 }
 </script>
