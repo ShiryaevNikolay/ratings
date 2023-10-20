@@ -51,6 +51,35 @@ import { RouterLink } from 'vue-router';
 import { RouteNames } from '@/router/routes';
 import { mapGetters } from 'vuex';
 
+const filters = [
+  {
+    field: null,
+    label: "Без фильтра"
+  },
+  {
+    field: "score",
+    label: "По рейтингу"
+  },
+  {
+    field: "date",
+    label: "По дате"
+  },
+  {
+    field: "name",
+    label: "По названию"
+  }
+]
+const filterOrder = [
+  {
+    value: false,
+    label: "По возрастанию"
+  },
+  {
+    value: true,
+    label: "По убыванию"
+  }
+]
+
 export default {
   name: 'ListCinema',
   mixins: [helpCinema],
@@ -62,41 +91,19 @@ export default {
   data() {
     return {
       selectedFilter: null,
-      needReverce: false,
-      filters: [
-        {
-          field: null,
-          label: "Без фильтра"
-        },
-        {
-          field: "score",
-          label: "По рейтингу"
-        },
-        {
-          field: "date",
-          label: "По дате"
-        },
-        {
-          field: "name",
-          label: "По названию"
-        }
-      ],
-      filterOrder: [
-        {
-          value: false,
-          label: "По возрастанию"
-        },
-        {
-          value: true,
-          label: "По убыванию"
-        }
-      ]
+      needReverce: false
     }
   },
   computed: {
     ...mapGetters('cinema', [
       'getFilmsWithFilter'
     ]),
+    filters () {
+      return filters
+    },
+    filterOrder() {
+      return filterOrder
+    },
     routeNames () {
       return RouteNames
     },
