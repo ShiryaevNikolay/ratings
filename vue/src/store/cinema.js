@@ -29,7 +29,7 @@ export default {
     getFilms: (state) => state.films,
     getFilm: (state) => (id) => state.films.find((cinema) => cinema.id == id),
     getFilmsWithFilter: (state) => ({ field, reverce }) => {
-      let films = state.films.slice()
+      const films = state.films.slice()
       if (field) {
         films.sort((a, b) => {
           const field1 = a[field]
