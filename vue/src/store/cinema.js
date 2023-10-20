@@ -28,17 +28,15 @@ export default {
   getters: {
     getFilms: (state) => state.films,
     getFilm: (state) => (id) => state.films.find((cinema) => cinema.id == id),
-    getFilmsWithFilter: (state) => (filter) => {
+    getFilmsWithFilter: (state) => ({ field, reverce }) => {
       let films = state.films.slice()
-      const field = filter.field
-      const needReverce = filter.needReverce
       if (field) {
         films.sort((a, b) => {
           const field1 = a[field]
           const field2 = b[field]
           return typeof field1 == "number" ? field1 - field2 : field1.localeCompare(field2)
         })
-        return needReverce ? films.reverse() : films
+        return reverce ? films.reverse() : films
       } else {
         return films
       }
