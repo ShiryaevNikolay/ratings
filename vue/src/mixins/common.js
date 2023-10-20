@@ -1,6 +1,6 @@
 export const helpCommon = {
   filters: {
-    ddMMyyyyFormat (value) {
+    dateFormat (value) {
       const date = new Date(value)
       return [
         ('0' + date.getDate()).slice(-2),

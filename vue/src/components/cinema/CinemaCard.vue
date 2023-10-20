@@ -10,7 +10,7 @@
       <div class="cinema-card__info__item">{{ cinema.name }}</div>
       <div class="cinema-card__info__item">{{ cinema.originName }}</div>
       <div class="cinema-card__info__item">{{ cinema.producer }}</div>
-      <div class="cinema-card__info__item">{{ cinema.date | ddMMyyyyFormat }}</div>
+      <div class="cinema-card__info__item">{{ cinema.date | dateFormat }}</div>
     </div>
   </div>
 </template>
