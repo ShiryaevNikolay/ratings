@@ -30,16 +30,15 @@ export default {
     getFilm: (state) => (id) => state.films.find((cinema) => cinema.id == id),
     getFilmsWithFilter: (state) => ({ field, reverce }) => {
       const films = state.films.slice()
-      if (field) {
-        films.sort((a, b) => {
-          const field1 = a[field]
-          const field2 = b[field]
-          return typeof field1 == "number" ? field1 - field2 : field1.localeCompare(field2)
-        })
-        return reverce ? films.reverse() : films
-      } else {
+      if (!field) {
         return films
       }
+      films.sort((a, b) => {
+        const field1 = a[field]
+        const field2 = b[field]
+        return typeof field1 == "number" ? field1 - field2 : field1.localeCompare(field2)
+      })
+      return reverce ? films.reverse() : films
     }
   },
   mutations: {
