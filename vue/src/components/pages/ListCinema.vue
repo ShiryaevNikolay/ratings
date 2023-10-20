@@ -110,13 +110,10 @@ export default {
     isSelectedFilter () {
       return this.selectedFilter != null
     },
-    needToReverceList () {
-      return this.selectedFilter ? this.needReverce : false
-    },
     films () {
       return this.getFilmsWithFilter({
         field: this.selectedFilter,
-        needReverce: this.needToReverceList
+        needReverce: this.selectedFilter ? this.needReverce : false
       })
     }
   },
