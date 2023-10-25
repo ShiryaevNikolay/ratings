@@ -13,6 +13,11 @@
           <ElButton type="primary" plain>{{ getButtonsText.addCinema }}</ElButton>
         </RouterLink>
       </div>
+      <div class="control">
+        <RouterLink :to="{ name: routeNames.RATING_FILMS }">
+          <ElButton type="primary" plain>{{ getButtonsText.makeRating }}</ElButton>
+        </RouterLink>
+      </div>
     </section>
   </PageLayout>
 </template>
@@ -37,7 +42,8 @@ export default {
     getButtonsText () {
       return {
         addCinema: "Добавить фильм",
-        createCinema: "Показать список фильмов"
+        createCinema: "Показать список фильмов",
+        makeRating: "Составить рейтинг"
       }
     }
   }

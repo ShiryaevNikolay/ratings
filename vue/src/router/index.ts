@@ -5,6 +5,7 @@ import ListCinema from '../components/pages/ListCinema.vue'
 import EditCinema from '../components/pages/EditCinema.vue'
 import CinemaDetails from '../components/pages/CinemaDetails.vue'
 import CreateCinema from '../components/pages/CreateCinema.vue'
+import RatingFilms from '../components/pages/RatingFilms.vue'
 import { RouteNames } from './routes'
 
 Vue.use(VueRouter)
@@ -34,6 +35,11 @@ const routes = [
     path: '/cinema/create',
     name: RouteNames.CREATE_CINEMA,
     component: CreateCinema
+  },
+  {
+    path: '/cinema/rating',
+    name: RouteNames.RATING_FILMS,
+    component: RatingFilms
   }
 ]
 
