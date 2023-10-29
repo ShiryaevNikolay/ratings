@@ -37,7 +37,6 @@ export default {
       films.sort((a, b) => {
         const field1 = a[field]
         const field2 = b[field]
-        console.log(field1 + ' ' + field2)
         return typeof field1 == "number" ? field1 - field2 : field1.localeCompare(field2)
       })
       return reverce ? films.reverse() : films
@@ -51,13 +50,7 @@ export default {
       const ratingKey = String(payload.rating)
       const newRatingFilms = state.ratingFilms.get(ratingKey) || []
       newRatingFilms.push(payload)
-
-      // TODO: удалить
-      console.log(newRatingFilms)
       state.ratingFilms.set(ratingKey, newRatingFilms)
-
-      // TODO: удалить
-      console.log(state.ratingFilms)
       syncRatingFilmsWithLocalStorage(state)
     },
     removeCinema (state, payload) {
