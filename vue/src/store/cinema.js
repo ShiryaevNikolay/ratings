@@ -48,24 +48,30 @@ export default {
       payload.id = genHash()
       payload.rating = 0
       const ratingKey = String(payload.rating)
-      const newRatingFilms = state.ratingFilms.get(ratingKey) || []
+      const ratingMap = state.ratingFilms
+      const newRatingFilms = ratingMap.get(ratingKey) || []
       newRatingFilms.push(payload)
-      state.ratingFilms.set(ratingKey, newRatingFilms)
+      ratingMap.set(ratingKey, newRatingFilms)
+      state.ratingFilms = new Map(ratingMap)
       syncRatingFilmsWithLocalStorage(state)
     },
     removeCinema (state, payload) {
       const ratingKey = String(payload.rating)
-      const films = state.ratingFilms.get(ratingKey)
+      const ratingMap = state.ratingFilms
+      const films = ratingMap.get(ratingKey)
       const filteredFilms = films.filter((cinema) => cinema.id != payload.id)
-      state.ratingFilms.set(ratingKey, filteredFilms)
+      ratingMap.set(ratingKey, filteredFilms)
+      state.ratingFilms = new Map(ratingMap)
       syncRatingFilmsWithLocalStorage(state)
     },
     editCinema (state, payload) {
       const ratingKey = String(payload.rating)
-      const films = state.ratingFilms.get(ratingKey).map((cinema) => {
+      const ratingMap = state.ratingFilms
+      const films = ratingMap.get(ratingKey).map((cinema) => {
         return cinema.id == payload.id ? payload : cinema
       })
-      state.ratingFilms.set(ratingKey, films)
+      ratingMap.set(ratingKey, films)
+      state.ratingFilms = new Map(ratingMap)
       syncRatingFilmsWithLocalStorage(state)
     }
   }
