@@ -10,9 +10,9 @@
           <div class="rating__cinema">
             <CinemaPreview :cinema="films[0]" />
             <div class="rating__controls">
-              <ElButton type="success">{{ "+10" }}</ElButton>
+              <ElButton @click="() => addRating(films[0], 10)" type="success">{{ "+10" }}</ElButton>
               <div class="rating__controls__container">
-                <ElButton type="primary">{{ "+1" }}</ElButton>
+                <ElButton @click="() => addRating(films[0], 1)" type="primary">{{ "+1" }}</ElButton>
                 <span>{{ films[0].rating }}</span>
               </div>
             </div>
@@ -23,9 +23,9 @@
             <div class="rating__controls">
               <div class="rating__controls__container">
                 <span>{{ films[1].rating }}</span>
-                <ElButton type="primary">{{ "+1" }}</ElButton>
+                <ElButton @click="() => addRating(films[1], 1)" type="primary">{{ "+1" }}</ElButton>
               </div>
-              <ElButton type="success">{{ "+10" }}</ElButton>
+              <ElButton @click="() => addRating(films[1], 10)" type="success">{{ "+10" }}</ElButton>
             </div>
           </div>
         </div>
@@ -40,7 +40,7 @@
 <script>
 import PageLayout from '../parts/PageLayout'
 import CinemaPreview from '../cinema/CinemaPreview.vue';
-import { mapGetters } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
 
 export default {
   name: "RatingFilms",
@@ -72,14 +72,23 @@ export default {
           continue
         }
       }
-      console.log(firstFilm)
-      console.log(secondFilm)
       return !firstFilm && !secondFilm
         ? null
         : {
           firstFilm: firstFilm,
           secondFilm: secondFilm
         }
+    }
+  },
+  methods: {
+    ...mapMutations('cinema', [
+      'updateRatingCinema'
+    ]),
+    addRating (cinema, count) {
+      this.updateRatingCinema({
+        cinema: cinema,
+        count: count
+      })
     }
   }
 }

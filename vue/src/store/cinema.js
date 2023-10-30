@@ -25,6 +25,7 @@ export default {
   namespaced: true,
   state: {
     ratingFilms: new Map(Object.entries(JSON.parse(localStorage.getItem(storeKey))))
+    // ratingFilms: new Map()
   },
   getters: {
     getFilms: (state) => [...state.ratingFilms.values()].flat(),
@@ -60,7 +61,11 @@ export default {
       const ratingMap = state.ratingFilms
       const films = ratingMap.get(ratingKey)
       const filteredFilms = films.filter((cinema) => cinema.id != payload.id)
-      ratingMap.set(ratingKey, filteredFilms)
+      if (filteredFilms.length == 0) {
+        ratingMap.delete(ratingKey)
+      } else {
+        ratingMap.set(ratingKey, filteredFilms)
+      }
       state.ratingFilms = new Map(ratingMap)
       syncRatingFilmsWithLocalStorage(state)
     },
@@ -71,6 +76,26 @@ export default {
         return cinema.id == payload.id ? payload : cinema
       })
       ratingMap.set(ratingKey, films)
+      state.ratingFilms = new Map(ratingMap)
+      syncRatingFilmsWithLocalStorage(state)
+    },
+    updateRatingCinema (state, payload) {
+      const cinema = payload.cinema
+      const ratingKey = String(cinema.rating)
+      const ratingMap = state.ratingFilms
+      const currentRatingFilms = ratingMap.get(ratingKey).filter((item) => item.id != cinema.id)
+      cinema.rating += payload.count
+      const newRatingKey = String(cinema.rating)
+      const newRatingFilms = ratingMap.get(newRatingKey) || []
+      newRatingFilms.push(cinema)
+      console.log("Список, из которого удаляется")
+      console.log(currentRatingFilms)
+      if (currentRatingFilms.length == 0) {
+        ratingMap.delete(ratingKey)
+      } else {
+        ratingMap.set(ratingKey, currentRatingFilms)
+      }
+      ratingMap.set(newRatingKey, newRatingFilms)
       state.ratingFilms = new Map(ratingMap)
       syncRatingFilmsWithLocalStorage(state)
     }
