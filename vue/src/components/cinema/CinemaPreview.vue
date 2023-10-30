@@ -15,10 +15,7 @@ export default {
   name: "CinemaPreview",
   mixins: [helpCommon],
   props: {
-    cinema: {
-      type: Object,
-      default: null
-    }
+    cinema: Object
   }
 }
 </script>

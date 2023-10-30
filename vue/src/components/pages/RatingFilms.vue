@@ -13,7 +13,7 @@
               <ElButton type="success">{{ "+10" }}</ElButton>
               <div class="rating__controls__container">
                 <ElButton type="primary">{{ "+1" }}</ElButton>
-                <span>Lorem</span>
+                <span>{{ films[0].rating }}</span>
               </div>
             </div>
           </div>
@@ -22,7 +22,7 @@
             <CinemaPreview :cinema="films[1]" />
             <div class="rating__controls">
               <div class="rating__controls__container">
-                <span>Lorem</span>
+                <span>{{ films[1].rating }}</span>
                 <ElButton type="primary">{{ "+1" }}</ElButton>
               </div>
               <ElButton type="success">{{ "+10" }}</ElButton>
