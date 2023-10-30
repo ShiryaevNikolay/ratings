@@ -113,7 +113,7 @@ export default {
     films () {
       return this.getFilmsWithFilter({
         field: this.selectedFilter,
-        needReverce: this.selectedFilter ? this.needReverce : false
+        reverce: this.selectedFilter ? this.needReverce : false
       })
     }
   },
