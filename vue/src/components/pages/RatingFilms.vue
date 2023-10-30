@@ -30,8 +30,9 @@
           </div>
         </div>
       </div>
-      <div v-else>
+      <div v-else class="header">
         <h1>Рейтинг составлен</h1>
+        <ElButton @click="() => clear()" type="primary">Очистить список</ElButton>
       </div>
     </section>
   </PageLayout>
@@ -82,19 +83,29 @@ export default {
   },
   methods: {
     ...mapMutations('cinema', [
-      'updateRatingCinema'
+      'updateRatingCinema',
+      'clearRating'
     ]),
     addRating (cinema, count) {
       this.updateRatingCinema({
         cinema: cinema,
         count: count
       })
+    },
+    clear () {
+      this.clearRating()
     }
   }
 }
 </script>
 
 <style scoped lang="less">
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
 .rating {
   display: grid;
   grid-template-columns: 1fr 1px 1fr;

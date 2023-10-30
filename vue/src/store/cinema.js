@@ -98,6 +98,16 @@ export default {
       ratingMap.set(newRatingKey, newRatingFilms)
       state.ratingFilms = new Map(ratingMap)
       syncRatingFilmsWithLocalStorage(state)
+    },
+    clearRating (state) {
+      const zeroRating = 0
+      const ratingFilms = [...state.ratingFilms.values()].flat().map((cinema) => {
+        cinema.rating = zeroRating
+        return cinema
+      })
+      state.ratingFilms = new Map()
+      state.ratingFilms.set(String(zeroRating), ratingFilms)
+      syncRatingFilmsWithLocalStorage(state)
     }
   }
 }
