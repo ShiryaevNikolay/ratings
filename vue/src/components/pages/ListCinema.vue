@@ -1,5 +1,10 @@
 <template>
   <PageLayout>
+    <div class="header">
+      <RouterLink :to="{ name: routeNames.HOME }" replace>
+        <ElButton type="primary" icon="el-icon-arrow-left">Главная страница</ElButton>
+      </RouterLink>
+    </div>
     <section class="p-16">
       <div class="cinema-header">
         <h1>Фильмы</h1>
@@ -130,6 +135,9 @@ export default {
 </script>
 
 <style scoped lang="less">
+.header {
+  margin-bottom: 16px;
+}
 .cinema-header {
   display: flex;
   flex-direction: row;

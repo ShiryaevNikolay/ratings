@@ -1,5 +1,10 @@
 <template>
   <PageLayout>
+    <div class="header">
+      <RouterLink :to="{ name: routeNames.HOME }" replace>
+        <ElButton type="primary" icon="el-icon-arrow-left">Главная страница</ElButton>
+      </RouterLink>
+    </div>
     <section class="p-16">
       <div v-if="isFilmsEmpty">
         <h1>Фильмы не найдены. Необходимо добавить фильм для составления рейтинга</h1>
@@ -30,7 +35,7 @@
           </div>
         </div>
       </div>
-      <div v-else class="header">
+      <div v-else class="rating-header">
         <h1>Рейтинг составлен</h1>
         <ElButton @click="() => clear()" type="primary">Очистить список</ElButton>
       </div>
@@ -42,11 +47,14 @@
 import PageLayout from '../parts/PageLayout'
 import CinemaPreview from '../cinema/CinemaPreview.vue';
 import { mapGetters, mapMutations } from 'vuex';
+import { RouterLink } from 'vue-router';
+import { RouteNames } from '@/router/routes';
 
 export default {
   name: "RatingFilms",
   components: {
     PageLayout,
+    RouterLink,
     CinemaPreview
   },
   computed: {
@@ -54,6 +62,9 @@ export default {
       'getFilms',
       'getRatingFilms'
     ]),
+    routeNames () {
+      return RouteNames
+    },
     films() {
       return this.getFilms
     },
@@ -101,6 +112,10 @@ export default {
 
 <style scoped lang="less">
 .header {
+  margin-bottom: 16px;
+}
+
+.rating-header {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
