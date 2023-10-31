@@ -20,12 +20,15 @@ const syncRatingFilmsWithLocalStorage = (state) => {
   const ratingFilmsAsObject = Object.fromEntries(state.ratingFilms.entries())
   localStorage.setItem(storeKey, JSON.stringify(ratingFilmsAsObject))
 }
+const getRatingFilmsFromLocalStorage = () => {
+  const ratingFilms = JSON.parse(localStorage.getItem(storeKey))
+  return ratingFilms ? new Map(Object.entries(ratingFilms)) : new Map()
+}
 
 export default {
   namespaced: true,
   state: {
-    ratingFilms: new Map(Object.entries(JSON.parse(localStorage.getItem(storeKey))))
-    // ratingFilms: new Map()
+    ratingFilms: getRatingFilmsFromLocalStorage()
   },
   getters: {
     getFilms: (state) => [...state.ratingFilms.values()].flat(),
