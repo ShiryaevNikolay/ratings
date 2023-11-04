@@ -63,7 +63,7 @@ const filters = [
   },
   {
     field: "score",
-    label: "По рейтингу"
+    label: "По оценке"
   },
   {
     field: "date",
@@ -72,6 +72,10 @@ const filters = [
   {
     field: "name",
     label: "По названию"
+  },
+  {
+    field: "rating",
+    label: "По рейтингу"
   }
 ]
 const filterOrder = [

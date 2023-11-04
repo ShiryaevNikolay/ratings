@@ -21,22 +21,28 @@ const syncFilmsWithLocalStorage = (state) => {
   localStorage.setItem(filmsKey, JSON.stringify(state.films))
 }
 const syncRatingFilmsWithLocalStorage = (state) => {
-  localStorage.setItem(ratingFilmsKey, JSON.stringify(state.ratingFilms))
+  localStorage.setItem(ratingFilmsKey, JSON.stringify(state.rating))
 }
 
 export default {
   namespaced: true,
   state: {
     films: JSON.parse(localStorage.getItem(filmsKey)) || [],
-    ratingFilms: JSON.parse(localStorage.getItem(ratingFilmsKey)) || {}
+    rating: JSON.parse(localStorage.getItem(ratingFilmsKey)) || {}
   },
   getters: {
     getFilms: (state) => state.films,
     getFilm: (state) => (id) => state.films.find((cinema) => cinema.id == id),
     getFilmsWithFilter: (state) => ({ field, reverce }) => {
       const films = state.films.slice()
+      const rating = state.rating
       if (!field) {
         return films.sort((a, b) => a["date"] - b["date"])
+      }
+      if (field == "rating") {
+        for (const filmId in rating) {
+          films.find(film => film.id == filmId).rating = rating[filmId]
+        }
       }
       films.sort((a, b) => {
         const field1 = a[field]
@@ -45,14 +51,14 @@ export default {
       })
       return reverce ? films.reverse() : films
     },
-    getRatingFilms: (state) => state.ratingFilms
+    getRatingFilms: (state) => state.rating
   },
   mutations: {
     addCinema (state, payload) {
       payload.id = genHash()
       state.films.push(payload)
-      state.ratingFilms = {
-        ...state.ratingFilms,
+      state.rating = {
+        ...state.rating,
         [payload.id]: 0
       }
       syncFilmsWithLocalStorage(state)
@@ -60,7 +66,7 @@ export default {
     },
     removeCinema (state, payload) {
       state.films = state.films.filter((cinema) => cinema.id != payload)
-      delete state.ratingFilms[payload]
+      delete state.rating[payload]
       syncFilmsWithLocalStorage(state)
       syncRatingFilmsWithLocalStorage(state)
     },
@@ -69,12 +75,12 @@ export default {
       syncFilmsWithLocalStorage(state)
     },
     updateRatingCinema (state, payload) {
-      state.ratingFilms[payload.id] = state.ratingFilms[payload.id] + payload.count
+      state.rating[payload.id] = state.rating[payload.id] + payload.count
       syncRatingFilmsWithLocalStorage(state)
     },
     clearRating (state) {
-      for (const filmId in state.ratingFilms) {
-        state.ratingFilms[filmId] = 0
+      for (const filmId in state.rating) {
+        state.rating[filmId] = 0
       }
       syncRatingFilmsWithLocalStorage(state)
     }
