@@ -13,24 +13,24 @@
         <h1>Составление рейтинга</h1>
         <div class="rating">
           <div class="rating__cinema">
-            <CinemaPreview :cinema="films[0]" />
+            <CinemaPreview :cinema="getFilmsForRaiting.firstFilm" />
             <div class="rating__controls">
-              <ElButton @click="() => addRating(films[0], 10)" type="success">{{ "+10" }}</ElButton>
+              <ElButton @click="() => addRating(getFilmsForRaiting.firstFilm, 10)" type="success">{{ "+10" }}</ElButton>
               <div class="rating__controls__container">
-                <ElButton @click="() => addRating(films[0], 1)" type="primary">{{ "+1" }}</ElButton>
-                <span>{{ films[0].rating }}</span>
+                <ElButton @click="() => addRating(getFilmsForRaiting.firstFilm, 1)" type="primary">{{ "+1" }}</ElButton>
+                <span>{{ getFilmsForRaiting.firstFilm.rating }}</span>
               </div>
             </div>
           </div>
           <div class="rating__divider" />
           <div class="rating__cinema">
-            <CinemaPreview :cinema="films[1]" />
+            <CinemaPreview :cinema="getFilmsForRaiting.secondFilm" />
             <div class="rating__controls">
               <div class="rating__controls__container">
-                <span>{{ films[1].rating }}</span>
-                <ElButton @click="() => addRating(films[1], 1)" type="primary">{{ "+1" }}</ElButton>
+                <span>{{ getFilmsForRaiting.secondFilm.rating }}</span>
+                <ElButton @click="() => addRating(getFilmsForRaiting.secondFilm, 1)" type="primary">{{ "+1" }}</ElButton>
               </div>
-              <ElButton @click="() => addRating(films[1], 10)" type="success">{{ "+10" }}</ElButton>
+              <ElButton @click="() => addRating(getFilmsForRaiting.secondFilm, 10)" type="success">{{ "+10" }}</ElButton>
             </div>
           </div>
         </div>
@@ -72,13 +72,14 @@ export default {
       return this.films.size == 0
     },
     getFilmsForRaiting() {
-      const ratingFilms = new Map([...this.getRatingFilms.entries()].sort())
+      // Создает объект, где ключ - рейтинг, значение - массив id фильмов
+      const ratingFilms = Object.entries(this.getRatingFilms).reduce((acc, [key, value]) => ((acc[value] = acc[value] || []).push(key), acc), {})
       let firstFilm
       let secondFilm
-      for (const films of ratingFilms.values()) {
-        if (films.length > 1) {
-          firstFilm = films[0]
-          secondFilm = films[1]
+      for (const filmsId of Object.values(ratingFilms)) {
+        if (filmsId.length > 1) {
+          firstFilm = this.films.find(film => film.id == filmsId[0])
+          secondFilm = this.films.find(film => film.id == filmsId[1])
           break
         } else {
           continue
@@ -98,10 +99,8 @@ export default {
       'clearRating'
     ]),
     addRating (cinema, count) {
-      this.updateRatingCinema({
-        cinema: cinema,
-        count: count
-      })
+      cinema.rating += count
+      this.updateRatingCinema(cinema)
     },
     clear () {
       this.clearRating()

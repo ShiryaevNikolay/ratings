@@ -33,6 +33,9 @@ export default {
     },
     editCinemaBtnText () {
       return "Сохранить изменения"
+    },
+    routeNames() {
+      return RouteNames
     }
   },
   methods: {

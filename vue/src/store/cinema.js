@@ -14,27 +14,27 @@ export const genHash = (length = 32) => {
   return hash + Date.now();
 }
 
-const storeKey = 'CINEMA_STORE'
+const filmsKey = 'CINEMA_STORE'
+const ratingFilmsKey = 'RATING_FILMS_STORE'
 
-const syncRatingFilmsWithLocalStorage = (state) => {
-  const ratingFilmsAsObject = Object.fromEntries(state.ratingFilms.entries())
-  localStorage.setItem(storeKey, JSON.stringify(ratingFilmsAsObject))
+const syncFilmsWithLocalStorage = (state) => {
+  localStorage.setItem(filmsKey, JSON.stringify(state.films))
 }
-const getRatingFilmsFromLocalStorage = () => {
-  const ratingFilms = JSON.parse(localStorage.getItem(storeKey))
-  return ratingFilms ? new Map(Object.entries(ratingFilms)) : new Map()
+const syncRatingFilmsWithLocalStorage = (state) => {
+  localStorage.setItem(ratingFilmsKey, JSON.stringify(state.ratingFilms))
 }
 
 export default {
   namespaced: true,
   state: {
-    ratingFilms: getRatingFilmsFromLocalStorage()
+    films: JSON.parse(localStorage.getItem(filmsKey)) || [],
+    ratingFilms: JSON.parse(localStorage.getItem(ratingFilmsKey)) || {}
   },
   getters: {
-    getFilms: (state) => [...state.ratingFilms.values()].flat(),
-    getFilm: (state, getters) => (id) => getters.getFilms.find((cinema) => cinema.id == id),
-    getFilmsWithFilter: (state, getters) => ({ field, reverce }) => {
-      const films = getters.getFilms.slice()
+    getFilms: (state) => state.films,
+    getFilm: (state) => (id) => state.films.find((cinema) => cinema.id == id),
+    getFilmsWithFilter: (state) => ({ field, reverce }) => {
+      const films = state.films.slice()
       if (!field) {
         return films.sort((a, b) => a["date"] - b["date"])
       }
@@ -50,66 +50,38 @@ export default {
   mutations: {
     addCinema (state, payload) {
       payload.id = genHash()
-      payload.rating = 0
-      const ratingKey = String(payload.rating)
-      const ratingMap = state.ratingFilms
-      const newRatingFilms = ratingMap.get(ratingKey) || []
-      newRatingFilms.push(payload)
-      ratingMap.set(ratingKey, newRatingFilms)
-      state.ratingFilms = new Map(ratingMap)
+      state.films.push(payload)
+      state.ratingFilms = {
+        ...state.ratingFilms,
+        [payload.id]: payload.rating
+      }
+      syncFilmsWithLocalStorage(state)
       syncRatingFilmsWithLocalStorage(state)
     },
     removeCinema (state, payload) {
-      const ratingKey = String(payload.rating)
-      const ratingMap = state.ratingFilms
-      const films = ratingMap.get(ratingKey)
-      const filteredFilms = films.filter((cinema) => cinema.id != payload.id)
-      if (filteredFilms.length == 0) {
-        ratingMap.delete(ratingKey)
-      } else {
-        ratingMap.set(ratingKey, filteredFilms)
-      }
-      state.ratingFilms = new Map(ratingMap)
+      state.films = state.films.filter((cinema) => cinema.id != payload)
+      delete state.ratingFilms[payload]
+      syncFilmsWithLocalStorage(state)
       syncRatingFilmsWithLocalStorage(state)
     },
     editCinema (state, payload) {
-      const ratingKey = String(payload.rating)
-      const ratingMap = state.ratingFilms
-      const films = ratingMap.get(ratingKey).map((cinema) => {
-        return cinema.id == payload.id ? payload : cinema
-      })
-      ratingMap.set(ratingKey, films)
-      state.ratingFilms = new Map(ratingMap)
-      syncRatingFilmsWithLocalStorage(state)
+      state.films = state.films.map((cinema) => cinema.id == payload.id ? payload : cinema)
+      syncFilmsWithLocalStorage(state)
     },
     updateRatingCinema (state, payload) {
-      const cinema = payload.cinema
-      const ratingKey = String(cinema.rating)
-      const ratingMap = state.ratingFilms
-      const currentRatingFilms = ratingMap.get(ratingKey).filter((item) => item.id != cinema.id)
-      cinema.rating += payload.count
-      const newRatingKey = String(cinema.rating)
-      const newRatingFilms = ratingMap.get(newRatingKey) || []
-      newRatingFilms.push(cinema)
-      console.log("Список, из которого удаляется")
-      console.log(currentRatingFilms)
-      if (currentRatingFilms.length == 0) {
-        ratingMap.delete(ratingKey)
-      } else {
-        ratingMap.set(ratingKey, currentRatingFilms)
-      }
-      ratingMap.set(newRatingKey, newRatingFilms)
-      state.ratingFilms = new Map(ratingMap)
+      state.films = state.films.map((cinema) => cinema.id == payload.id ? payload : cinema)
+      state.ratingFilms[payload.id] = payload.rating
+      syncFilmsWithLocalStorage(state)
       syncRatingFilmsWithLocalStorage(state)
     },
     clearRating (state) {
-      const zeroRating = 0
-      const ratingFilms = [...state.ratingFilms.values()].flat().map((cinema) => {
-        cinema.rating = zeroRating
+      state.films = state.films.map((cinema) => {
+        cinema.rating = 0
         return cinema
       })
-      state.ratingFilms = new Map()
-      state.ratingFilms.set(String(zeroRating), ratingFilms)
+      const newRatingFilms = state.films.map((cinema) => [cinema.id, cinema.rating])
+      state.ratingFilms = Object.fromEntries(newRatingFilms)
+      syncFilmsWithLocalStorage(state)
       syncRatingFilmsWithLocalStorage(state)
     }
   }
