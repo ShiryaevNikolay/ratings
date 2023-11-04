@@ -135,9 +135,6 @@ export default {
 </script>
 
 <style scoped lang="less">
-.header {
-  margin-bottom: 16px;
-}
 .cinema-header {
   display: flex;
   flex-direction: row;

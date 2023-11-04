@@ -37,9 +37,3 @@ export default {
   }
 }
 </script>
-
-<style scoped lang="less">
-.header {
-  margin-bottom: 16px;
-}
-</style>

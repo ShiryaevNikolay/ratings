@@ -110,10 +110,6 @@ export default {
 </script>
 
 <style scoped lang="less">
-.header {
-  margin-bottom: 16px;
-}
-
 .rating-header {
   display: flex;
   flex-direction: row;

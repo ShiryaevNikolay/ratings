@@ -57,6 +57,10 @@ h2 {
   display: flex;
 }
 
+.header {
+  margin-bottom: 16px;
+}
+
 .rcms {
 
   &-divider {
