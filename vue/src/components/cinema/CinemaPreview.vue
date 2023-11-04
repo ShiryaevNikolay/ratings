@@ -9,8 +9,11 @@
 </template>
 
 <script>
+import { helpCommon } from "@/mixins/common"
+
 export default {
   name: "CinemaPreview",
+  mixins: [helpCommon],
   props: {
     cinema: Object
   }
@@ -23,15 +26,12 @@ export default {
   flex-direction: column;
   align-items: center;
 
-  &__name {
-    margin-top: 20px;
-  }
-
   &__author {
     margin-bottom: 20px;
   }
 
   &__name {
+    margin-top: 20px;
     font-size: 20px;
     font-weight: 600;
   }
