@@ -9,11 +9,8 @@
 </template>
 
 <script>
-import { helpCommon } from "@/mixins/common"
-
 export default {
   name: "CinemaPreview",
-  mixins: [helpCommon],
   props: {
     cinema: Object
   }
