@@ -33,7 +33,7 @@ export default {
     }
   },
   methods: {
-    saveCinema(cinema) {
+    saveCinema (cinema) {
       this.addCinema(cinema)
     }
   }
