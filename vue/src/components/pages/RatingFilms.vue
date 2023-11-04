@@ -18,7 +18,7 @@
               <ElButton @click="() => addRating(getFilmsForRaiting.firstFilm, 10)" type="success">{{ "+10" }}</ElButton>
               <div class="rating__controls__container">
                 <ElButton @click="() => addRating(getFilmsForRaiting.firstFilm, 1)" type="primary">{{ "+1" }}</ElButton>
-                <span>{{ getFilmsForRaiting.firstFilm.rating }}</span>
+                <span>{{ getRatings.firstRating }}</span>
               </div>
             </div>
           </div>
@@ -27,7 +27,7 @@
             <CinemaPreview :cinema="getFilmsForRaiting.secondFilm" />
             <div class="rating__controls">
               <div class="rating__controls__container">
-                <span>{{ getFilmsForRaiting.secondFilm.rating }}</span>
+                <span>{{ getRatings.secondRating }}</span>
                 <ElButton @click="() => addRating(getFilmsForRaiting.secondFilm, 1)" type="primary">{{ "+1" }}</ElButton>
               </div>
               <ElButton @click="() => addRating(getFilmsForRaiting.secondFilm, 10)" type="success">{{ "+10" }}</ElButton>
@@ -65,13 +65,13 @@ export default {
     routeNames () {
       return RouteNames
     },
-    films() {
+    films () {
       return this.getFilms
     },
-    isFilmsEmpty() {
+    isFilmsEmpty () {
       return this.films.size == 0
     },
-    getFilmsForRaiting() {
+    getFilmsForRaiting () {
       // Создает объект, где ключ - рейтинг, значение - массив id фильмов
       const ratingFilms = Object.entries(this.getRatingFilms).reduce((acc, [key, value]) => ((acc[value] = acc[value] || []).push(key), acc), {})
       let firstFilm
@@ -91,6 +91,13 @@ export default {
           firstFilm: firstFilm,
           secondFilm: secondFilm
         }
+    },
+    getRatings () {
+      const currentFilms = this.getFilmsForRaiting
+      return {
+        firstRating: this.getRatingFilms[currentFilms.firstFilm.id],
+        secondRating: this.getRatingFilms[currentFilms.secondFilm.id]
+      }
     }
   },
   methods: {
@@ -99,8 +106,10 @@ export default {
       'clearRating'
     ]),
     addRating (cinema, count) {
-      cinema.rating += count
-      this.updateRatingCinema(cinema)
+      this.updateRatingCinema({
+        id: cinema.id,
+        count: count
+      })
     },
     clear () {
       this.clearRating()

@@ -53,7 +53,7 @@ export default {
       state.films.push(payload)
       state.ratingFilms = {
         ...state.ratingFilms,
-        [payload.id]: payload.rating
+        [payload.id]: 0
       }
       syncFilmsWithLocalStorage(state)
       syncRatingFilmsWithLocalStorage(state)
@@ -69,19 +69,13 @@ export default {
       syncFilmsWithLocalStorage(state)
     },
     updateRatingCinema (state, payload) {
-      state.films = state.films.map((cinema) => cinema.id == payload.id ? payload : cinema)
-      state.ratingFilms[payload.id] = payload.rating
-      syncFilmsWithLocalStorage(state)
+      state.ratingFilms[payload.id] = state.ratingFilms[payload.id] + payload.count
       syncRatingFilmsWithLocalStorage(state)
     },
     clearRating (state) {
-      state.films = state.films.map((cinema) => {
-        cinema.rating = 0
-        return cinema
-      })
-      const newRatingFilms = state.films.map((cinema) => [cinema.id, cinema.rating])
-      state.ratingFilms = Object.fromEntries(newRatingFilms)
-      syncFilmsWithLocalStorage(state)
+      for (const filmId in state.ratingFilms) {
+        state.ratingFilms[filmId] = 0
+      }
       syncRatingFilmsWithLocalStorage(state)
     }
   }

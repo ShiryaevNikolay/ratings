@@ -124,7 +124,7 @@ export default {
   },
   methods: {
     deleteCinema (cinema) {
-      this.removeCinema(cinema)
+      this.removeCinema(cinema.id)
     }
   },
   mounted() {

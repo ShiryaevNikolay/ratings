@@ -52,8 +52,7 @@ export default {
         producer: '',
         date: null,
         previewUrl: '',
-        score: null,
-        rating: 0
+        score: null
       }
     }
   },
