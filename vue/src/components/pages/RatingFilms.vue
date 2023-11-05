@@ -86,8 +86,6 @@ export default {
             firstFilm: firstFilm,
             secondFilm: secondFilm
           }
-        } else {
-          continue
         }
       }
       return null
