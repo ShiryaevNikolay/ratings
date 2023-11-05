@@ -59,38 +59,38 @@ export default {
   },
   computed: {
     ...mapGetters('cinema', [
-      'getFilms',
-      'getRatingFilms'
+      'getFilmsWithFilter',
+      'getRatingFilms',
+      'getFilmsWithFilter'
     ]),
     routeNames () {
       return RouteNames
     },
     films () {
-      return this.getFilms
+      return this.getFilmsWithFilter({
+        field: "rating",
+        reverse: true
+      })
     },
     isFilmsEmpty () {
       return this.films.size == 0
     },
     getFilmsForRaiting () {
-      // Создает объект, где ключ - рейтинг, значение - массив id фильмов
-      const ratingFilms = Object.entries(this.getRatingFilms).reduce((acc, [key, value]) => ((acc[value] = acc[value] || []).push(key), acc), {})
-      let firstFilm
-      let secondFilm
-      for (const filmsId of Object.values(ratingFilms)) {
-        if (filmsId.length > 1) {
-          firstFilm = this.films.find(film => film.id == filmsId[0])
-          secondFilm = this.films.find(film => film.id == filmsId[1])
-          break
+      const rating = this.getRatingFilms
+      const films = this.films
+      for (let i = 0; i < films.length - 1; i++) {
+        const firstFilm = films[i]
+        const secondFilm = films[i + 1]
+        if (rating[firstFilm.id] == rating[secondFilm.id]) {
+          return {
+            firstFilm: firstFilm,
+            secondFilm: secondFilm
+          }
         } else {
           continue
         }
       }
-      return !firstFilm && !secondFilm
-        ? null
-        : {
-          firstFilm: firstFilm,
-          secondFilm: secondFilm
-        }
+      return null
     },
     getRatings () {
       const currentFilms = this.getFilmsForRaiting
