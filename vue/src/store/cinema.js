@@ -32,7 +32,7 @@ export default {
   },
   getters: {
     getFilms: (state) => state.films,
-    getFilm: (state) => (id) => state.films.find((cinema) => cinema.id == id),
+    getFilm: (state) => (id) => state.films.find((film) => film.id == id),
     getFilmsWithFilter: (state) => ({ field, reverce }) => {
       const films = state.films.slice()
       const rating = state.rating
@@ -66,13 +66,13 @@ export default {
       syncRatingFilmsWithLocalStorage(state)
     },
     removeCinema (state, payload) {
-      state.films = state.films.filter((cinema) => cinema.id != payload)
+      state.films = state.films.filter((film) => film.id != payload)
       delete state.rating[payload]
       syncFilmsWithLocalStorage(state)
       syncRatingFilmsWithLocalStorage(state)
     },
     editCinema (state, payload) {
-      state.films = state.films.map((cinema) => cinema.id == payload.id ? payload : cinema)
+      state.films = state.films.map((film) => film.id == payload.id ? payload : film)
       syncFilmsWithLocalStorage(state)
     },
     updateRatingCinema (state, payload) {
