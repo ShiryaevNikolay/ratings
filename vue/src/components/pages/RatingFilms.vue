@@ -59,7 +59,6 @@ export default {
   },
   computed: {
     ...mapGetters('cinema', [
-      'getFilmsWithFilter',
       'getRatingFilms',
       'getFilmsWithFilter'
     ]),
@@ -81,7 +80,9 @@ export default {
       for (let i = 0; i < films.length - 1; i++) {
         const firstFilm = films[i]
         const secondFilm = films[i + 1]
-        if (rating[firstFilm.id] == rating[secondFilm.id]) {
+        const firstRating = rating[firstFilm.id] || 0
+        const secondRating = rating[secondFilm.id] || 0
+        if (firstRating == secondRating) {
           return {
             firstFilm: firstFilm,
             secondFilm: secondFilm
@@ -93,8 +94,8 @@ export default {
     getRatings () {
       const currentFilms = this.getFilmsForRaiting
       return {
-        firstRating: this.getRatingFilms[currentFilms.firstFilm.id],
-        secondRating: this.getRatingFilms[currentFilms.secondFilm.id]
+        firstRating: this.getRatingFilms[currentFilms.firstFilm.id] || 0,
+        secondRating: this.getRatingFilms[currentFilms.secondFilm.id] || 0
       }
     }
   },

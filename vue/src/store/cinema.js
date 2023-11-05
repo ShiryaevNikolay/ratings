@@ -41,7 +41,7 @@ export default {
       }
       if (field == "rating") {
         films.sort((first, second) => {
-          return rating[first.id] - rating[second.id]
+          return rating[first.id] || 0 - rating[second.id] || 0
         })
       } else {
         films.sort((a, b) => {
@@ -58,12 +58,7 @@ export default {
     addCinema (state, payload) {
       payload.id = genHash()
       state.films.push(payload)
-      state.rating = {
-        ...state.rating,
-        [payload.id]: 0
-      }
       syncFilmsWithLocalStorage(state)
-      syncRatingFilmsWithLocalStorage(state)
     },
     removeCinema (state, payload) {
       state.films = state.films.filter((film) => film.id != payload)
@@ -76,13 +71,15 @@ export default {
       syncFilmsWithLocalStorage(state)
     },
     updateRatingCinema (state, payload) {
-      state.rating[payload.id] = state.rating[payload.id] + payload.count
+      const currentRating = state.rating[payload.id] || 0
+      state.rating = {
+        ...state.rating,
+        [payload.id]: currentRating + payload.count
+      }
       syncRatingFilmsWithLocalStorage(state)
     },
     clearRating (state) {
-      for (const filmId in state.rating) {
-        state.rating[filmId] = 0
-      }
+      state.rating = {}
       syncRatingFilmsWithLocalStorage(state)
     }
   }
