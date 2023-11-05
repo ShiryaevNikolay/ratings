@@ -40,15 +40,16 @@ export default {
         return films.sort((a, b) => a["date"] - b["date"])
       }
       if (field == "rating") {
-        for (const filmId in rating) {
-          films.find(film => film.id == filmId).rating = rating[filmId]
-        }
+        films.sort((first, second) => {
+          return rating[first.id] - rating[second.id]
+        })
+      } else {
+        films.sort((a, b) => {
+          const field1 = a[field]
+          const field2 = b[field]
+          return typeof field1 == "number" ? field1 - field2 : field1.localeCompare(field2)
+        })
       }
-      films.sort((a, b) => {
-        const field1 = a[field]
-        const field2 = b[field]
-        return typeof field1 == "number" ? field1 - field2 : field1.localeCompare(field2)
-      })
       return reverce ? films.reverse() : films
     },
     getRatingFilms: (state) => state.rating
