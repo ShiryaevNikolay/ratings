@@ -84,8 +84,8 @@ export default {
         const secondRating = rating[secondFilm.id] || 0
         if (firstRating == secondRating) {
           return {
-            firstFilm: firstFilm,
-            secondFilm: secondFilm
+            firstFilm,
+            secondFilm
           }
         }
       }
