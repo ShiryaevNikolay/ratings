@@ -26,7 +26,7 @@
       <ElRate v-model="form.score" :colors="getSroceIcons" class="cinema-form__field" />
     </div>
     <div class="cinema-form__field">
-      <ElButton type="primary" @click="() => handleClick()">{{ btnText }}</ElButton>
+      <ElButton type="success" @click="() => handleClick()">{{ btnText }}</ElButton>
     </div>
   </div>
 </template>
