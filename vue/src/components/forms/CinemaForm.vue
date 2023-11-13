@@ -11,9 +11,10 @@
     </div>
     <div class="cinema-form__field">
       <ElDatePicker
-        v-model="form.date"
+        v-model="form.year"
         type="year"
-        placeholder="Дата выхода фильма"
+        placeholder="Год"
+        value-format="yyyy"
       />
     </div>
     <div class="cinema-form__field">
@@ -62,7 +63,7 @@ export default {
         name: '',
         originName: '',
         producer: '',
-        date: null,
+        year: '',
         previewUrl: '',
         score: null
       },
@@ -95,12 +96,13 @@ export default {
     loadFilmFromApi () {
       this.loadFilmById(this.form.id)
         .then(data => {
+          console.log(data)
           this.form = {
             ...this.form,
             id: data.kinopoiskId,
             name: data.nameRu,
             originName: data.nameOriginal,
-            date: data.year,
+            year: String(data.year),
             previewUrl: data.posterUrlPreview,
           }
         })
