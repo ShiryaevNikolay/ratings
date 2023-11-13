@@ -1,3 +1,5 @@
+import axios from 'axios'
+
 export const randomInteger = (min, max) => {
   const rand = min + Math.random() * (max - min);
   return Math.round(rand);
@@ -23,6 +25,14 @@ const syncFilmsWithLocalStorage = (state) => {
 const syncRatingFilmsWithLocalStorage = (state) => {
   localStorage.setItem(ratingFilmsKey, JSON.stringify(state.rating))
 }
+
+const axiosInstance = axios.create({
+  baseURL: 'https://kinopoiskapiunofficial.tech/api/v2.2',
+  headers: {
+    'X-API-KEY': '', // TODO: указать индивидуальный ключ для работы с API
+    'Content-Type': 'application/json',
+  },
+})
 
 export default {
   namespaced: true,
@@ -56,7 +66,9 @@ export default {
   },
   mutations: {
     addCinema (state, payload) {
-      payload.id = genHash()
+      if (!payload.id) {
+        payload.id = genHash()
+      }
       state.films.push(payload)
       syncFilmsWithLocalStorage(state)
     },
@@ -82,5 +94,19 @@ export default {
       state.rating = {}
       syncRatingFilmsWithLocalStorage(state)
     }
+  },
+  actions: {
+    loadFilmById: (store, payload) => new Promise((resolve, reject) => {
+      axiosInstance.get('/films/' + payload)
+        .then(response => {
+          if (response.data) {
+            resolve(response.data)
+          }
+          reject(new Error("Данные пустые "))
+        })
+        .catch(error => {
+          reject(error)
+        })
+    })
   }
 }
