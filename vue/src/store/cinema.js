@@ -102,7 +102,7 @@ export default {
           if (response.data) {
             resolve(response.data)
           }
-          reject(new Error("Данные пустые "))
+          reject(new Error("Данные не были получены"))
         })
         .catch(error => {
           reject(error)
