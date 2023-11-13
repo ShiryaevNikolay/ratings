@@ -32,7 +32,9 @@
           type="primary"
           class="load-by-id"
           @click="() => changeVisibleFormById()"
-        >{{  isVisibleLoadFormById ? "Отмена" : "Загрузить по id"  }}</ElButton>
+        >
+        {{  isVisibleLoadFormById ? "Отмена" : "Загрузить по id"  }}
+        </ElButton>
       </div>
     <div v-if="isVisibleLoadFormById" class="cinema-form__load-by-id cinema-form__field">
       <ElInput v-model="form.id" placeholder="ID фильма"/>
