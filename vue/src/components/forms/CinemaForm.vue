@@ -61,7 +61,6 @@ export default {
   data() {
     return {
       form: {
-        id: null,
         name: '',
         originName: '',
         producer: '',
@@ -101,7 +100,6 @@ export default {
           console.log(data)
           this.form = {
             ...this.form,
-            id: data.kinopoiskId,
             name: data.nameRu,
             originName: data.nameOriginal,
             year: String(data.year),

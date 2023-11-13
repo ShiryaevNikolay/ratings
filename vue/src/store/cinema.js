@@ -66,9 +66,7 @@ export default {
   },
   mutations: {
     addCinema (state, payload) {
-      if (!payload.id) {
-        payload.id = genHash()
-      }
+      payload.id = genHash()
       state.films.push(payload)
       syncFilmsWithLocalStorage(state)
     },
