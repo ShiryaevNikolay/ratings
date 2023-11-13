@@ -105,7 +105,7 @@ export default {
           }
         })
         .catch(error => {
-          console.log(error)
+          this.$message.error(error)
         })
     }
   }
