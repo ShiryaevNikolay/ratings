@@ -1,39 +1,39 @@
 <template>
   <div class="cinema-form">
-    <div class="mt-16">
+    <div class="cinema-form__field">
       <ElInput v-model="form.name" placeholder="Название фильма" />
     </div>
-    <div class="mt-16">
+    <div class="cinema-form__field">
       <ElInput v-model="form.originName" placeholder="Оригинальное название" />
     </div>
-    <div class="mt-16">
+    <div class="cinema-form__field">
       <ElInput v-model="form.producer" placeholder="Режиссер" />
     </div>
-    <div class="mt-16">
+    <div class="cinema-form__field">
       <ElDatePicker
         v-model="form.date"
         type="year"
         placeholder="Дата выхода фильма"
       />
     </div>
-    <div class="mt-16">
+    <div class="cinema-form__field">
       <ElInput v-model="form.previewUrl" placeholder="Ссылка на обложку" />
     </div>
-    <div class="mt-16">
+    <div class="cinema-form__field">
       <span>Оценка фильма</span>
-      <ElRate v-model="form.score" :colors="getSroceIcons" class="mt-16" />
+      <ElRate v-model="form.score" :colors="getSroceIcons" class="cinema-form__field" />
     </div>
-    <div class="mt-16">
+    <div class="cinema-form__field">
       <ElButton type="success" @click="() => handleClick()">{{ btnText }}</ElButton>
     </div>
-    <div class="mt-16">
+    <div class="cinema-form__field">
         <ElButton
           type="primary"
           class="load-by-id"
           @click="() => changeVisibleFormById()"
         >{{  isVisibleLoadFormById ? "Отмена" : "Загрузить по id"  }}</ElButton>
       </div>
-    <div v-if="isVisibleLoadFormById" class="cinema-form__load-by-id mt-16">
+    <div v-if="isVisibleLoadFormById" class="cinema-form__load-by-id cinema-form__field">
       <ElInput v-model="form.id" placeholder="ID фильма"/>
       <ElButton icon="el-icon-download" @click="() => loadFilmFromApi()" circle />
     </div>
@@ -113,11 +113,11 @@ export default {
 </script>
 
 <style lang="less">
-.mt-16 {
-  margin-top: 16px;
-}
-
 .cinema-form {
+  &__field {
+    margin-top: 16px;
+  }
+
   &__load-by-id {
     display: flex;
     flex-direction: row;
