@@ -6,7 +6,15 @@
       </RouterLink>
     </div>
     <section class="p-16">
-      <CinemaCard :cinema="cinema"/>
+      <div class="cinema-details">
+        <CinemaCard :cinema="cinema"/>
+        <div class="cinema-details__buttons">
+          <RouterLink :to="{ name: routeNames.EDIT_CINEMA, params: { id: cinema.id } }">
+            <ElButton type="primary" icon="el-icon-edit" circle />
+          </RouterLink>
+          <ElButton type="danger" icon="el-icon-delete" circle @click="() => deleteCinema(cinema)" />
+        </div>
+      </div>
     </section>
   </PageLayout>
 </template>
@@ -34,6 +42,26 @@ export default {
     routeNames() {
       return RouteNames
     }
+  },
+  methods: {
+    deleteCinema () {
+      this.removeCinema(this.cinema.id)
+      this.$router.replace({ name: RouteNames.LIST_CINEMA })
+    }
   }
 }
 </script>
+
+<style scoped lang="less">
+.cinema-details {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 16px;
+
+  &__buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+}
+</style>
