@@ -97,7 +97,6 @@ export default {
     loadFilmFromApi () {
       this.loadFilmById(this.form.id)
         .then(data => {
-          console.log(data)
           this.form = {
             ...this.form,
             name: data.nameRu,

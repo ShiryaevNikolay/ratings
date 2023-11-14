@@ -35,6 +35,7 @@ export default {
   methods: {
     saveCinema (cinema) {
       this.addCinema(cinema)
+      this.$router.push({ name: RouteNames.CINEMA_DETAILS, params: { id: cinema.id } })
     }
   }
 }
