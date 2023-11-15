@@ -18,6 +18,7 @@ import CinemaForm from "../forms/CinemaForm"
 import { RouteNames } from '@/router/routes'
 import { helpCinema } from "@/mixins/cinema"
 import { RouterLink } from 'vue-router'
+import { mapActions } from 'vuex'
 
 export default {
   name: "CreateCinema",
@@ -33,9 +34,14 @@ export default {
     }
   },
   methods: {
+    ...mapActions('cinema', [
+      'createFilm'
+    ]),
     saveCinema (cinema) {
-      this.addCinema(cinema)
-      this.$router.push({ name: RouteNames.CINEMA_DETAILS, params: { id: cinema.id } })
+      this.createFilm(cinema)
+        .then((filmId) => {
+          this.$router.push({ name: RouteNames.CINEMA_DETAILS, params: { id: filmId } })
+        })
     }
   }
 }
