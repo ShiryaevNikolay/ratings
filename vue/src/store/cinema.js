@@ -105,6 +105,10 @@ export default {
         .catch(error => {
           reject(error)
         })
+    }),
+    createFilm: ({ commit }, payload) => new Promise((resolve) => {
+      commit('addCinema', payload)
+      resolve(payload.id)
     })
   }
 }
