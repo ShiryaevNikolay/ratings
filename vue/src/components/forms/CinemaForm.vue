@@ -10,7 +10,7 @@
       </ElButton>
     </div>
     <div v-if="isVisibleLoadFormById" class="cinema-form__load-by-id cinema-form__field">
-      <ElInput v-model="form.id" placeholder="ID фильма"/>
+      <ElInput v-model="id" placeholder="ID фильма"/>
       <ElButton icon="el-icon-download" @click="() => loadFilmFromApi()" circle />
     </div>
     <div class="cinema-form__field">
@@ -68,6 +68,7 @@ export default {
         previewUrl: '',
         score: null
       },
+      id: null,
       isVisibleLoadFormById: false
     }
   },
@@ -95,7 +96,7 @@ export default {
       this.isVisibleLoadFormById = !this.isVisibleLoadFormById
     },
     loadFilmFromApi () {
-      this.loadFilmById(this.form.id)
+      this.loadFilmById(this.id)
         .then(data => {
           this.form = {
             ...this.form,
