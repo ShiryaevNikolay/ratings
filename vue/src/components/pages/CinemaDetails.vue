@@ -7,18 +7,16 @@
     </div>
     <section class="p-16">
       <div class="cinema-details">
-        <div class="cinema-details__buttons">
-          <RouterLink :to="{ name: routeNames.EDIT_CINEMA, params: { id: cinema.id } }">
-            <ElButton type="primary" icon="el-icon-edit" circle />
-          </RouterLink>
-          <ElButton type="danger" icon="el-icon-delete" circle @click="() => deleteCinema()" />
-        </div>
-        <div class="cinema-details__preview">
-          <img class="cinema-card__preview__image" :src="cinema.previewUrl" />
-          <div class="cinema-card__preview__score">
-            <ElRate v-model="getScore" disabled :colors="getSroceIcons" />
+        <div class="cinema-details__header">
+          <ElRate v-model="getScore" disabled :colors="getSroceIcons" />
+          <div class="cinema-details__header__buttons">
+            <RouterLink :to="{ name: routeNames.EDIT_CINEMA, params: { id: cinema.id } }">
+              <ElButton type="primary" icon="el-icon-edit" circle />
+            </RouterLink>
+            <ElButton type="danger" icon="el-icon-delete" circle @click="() => deleteCinema()" />
           </div>
         </div>
+        <div class="cinema-card__preview" :style="previewStyle"/>
         <div class="cinema-details__info">
           <div class="cinema-details__info__item cinema-details__info__name">{{ cinema.name }}</div>
           <div class="cinema-details__info__item">Оригинальное название: {{ cinema.originName }}</div>
@@ -56,6 +54,13 @@ export default {
     },
     routeNames() {
       return RouteNames
+    },
+    previewStyle () {
+      return {
+        backgroundImage: `url(${this.cinema.coverUrl || ''})`,
+        backgroundSize: `cover`,
+        backgroundPosition: `center`
+      }
     }
   },
   methods: {
@@ -71,24 +76,31 @@ export default {
 .cinema-details {
   display: grid;
   grid-template:
-    "buttons buttons" auto
-    "preview info" auto
-    / 300px 1fr;
+    "header" auto
+    "cover" 300px
+    "info" auto;
   gap: 16px;
 
-  &__buttons {
-    grid-area: buttons;
+  &__header {
+    grid-area: header;
     display: flex;
     flex-direction: row;
-    justify-content: end;
-    gap: 16px
+    justify-content: space-between;
+    align-items: center;
+
+    &__buttons {
+      display: flex;
+      flex-direction: row;
+      justify-content: end;
+      gap: 16px
+    }
   }
 
   &__preview {
-    grid-area: preview;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
+    grid-area: cover;
+    background: #bababa;
+    background-size: cover;
+    background-position: center;
   }
 
   &__info {

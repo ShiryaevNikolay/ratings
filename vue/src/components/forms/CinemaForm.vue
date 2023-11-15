@@ -104,6 +104,7 @@ export default {
             originName: data.nameOriginal,
             year: String(data.year),
             previewUrl: data.posterUrlPreview,
+            coverUrl: data.coverUrl
           }
         })
         .catch(error => {
