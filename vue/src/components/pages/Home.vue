@@ -3,19 +3,42 @@
     <section class="p-16">
       Homepage
       <button @click="() => openHelpModal()">Open modal</button>
-      <div class="control">
+      <div class="menu">
         <RouterLink :to="{ name: routeNames.LIST_CINEMA }">
-          <ElButton type="primary" plain>{{ getButtonsText.createCinema }}</ElButton>
+          <ElButton
+            type="primary"
+            icon="el-icon-document-copy"
+            plain
+          >
+          {{ getButtonsText.createCinema }}
+          </ElButton>
         </RouterLink>
-      </div>
-      <div class="control">
         <RouterLink :to="{ name: routeNames.CREATE_CINEMA }">
-          <ElButton type="primary" plain>{{ getButtonsText.addCinema }}</ElButton>
+          <ElButton
+            type="success"
+            icon="el-icon-plus"
+            plain
+          >
+          {{ getButtonsText.addCinema }}
+          </ElButton>
         </RouterLink>
-      </div>
-      <div class="control">
         <RouterLink :to="{ name: routeNames.RATING_FILMS }">
-          <ElButton type="primary" plain>{{ getButtonsText.makeRating }}</ElButton>
+          <ElButton
+            type="warning"
+            icon="el-icon-top"
+            plain
+          >
+          {{ getButtonsText.makeRating }}
+          </ElButton>
+        </RouterLink>
+        <RouterLink :to="{ name: routeNames.SETTINGS }">
+          <ElButton
+            type="info"
+            icon="el-icon-setting"
+            plain
+          >
+          {{ getButtonsText.settings }}
+          </ElButton>
         </RouterLink>
       </div>
     </section>
@@ -43,7 +66,8 @@ export default {
       return {
         addCinema: "Добавить фильм",
         createCinema: "Показать список фильмов",
-        makeRating: "Составить рейтинг"
+        makeRating: "Составить рейтинг",
+        settings: "Настройки"
       }
     }
   }
@@ -51,7 +75,10 @@ export default {
 </script>
 
 <style lang="less">
-.control {
+.menu {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
   margin-top: 16px;
 }
 </style>
