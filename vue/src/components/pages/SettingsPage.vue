@@ -20,22 +20,29 @@
           </ElButton>
         </div>
         <div class="settings__buttons">
-          <ElButton
-            type="primary"
-            icon="el-icon-upload2"
-            plain
-            @click="() => exportData()"
+          <a
+            :href="downloadRef"
+            class="el-button el-icon-upload2"
+            download="films.json"
           >
-          Экспорт данных
-          </ElButton>
-          <ElButton
-            type="primary"
-            icon="el-icon-download"
-            plain
-            @click="() => importData()"
+            <span>Экспорт данных</span>
+          </a>
+          <ElUpload
+            action=""
+            accept=".json"
+            :limit="1"
+            :show-file-list="false"
+            :auto-upload="false"
+            :on-change="(file) => importData(file)"
           >
-          Импорт данных
-          </ElButton>
+            <ElButton
+              type="primary"
+              icon="el-icon-download"
+              plain
+            >
+            Импорт данных
+            </ElButton>
+          </ElUpload>
         </div>
       </div>
     </section>
@@ -44,7 +51,7 @@
 
 <script>
 import PageLayout from '../parts/PageLayout'
-import { mapMutations } from 'vuex'
+import { mapMutations, mapActions, mapGetters } from 'vuex'
 import { RouterLink } from 'vue-router'
 import { RouteNames } from '@/router/routes'
 
@@ -60,22 +67,42 @@ export default {
     }
   },
   computed: {
+    ...mapGetters('cinema', [
+      'getFilms',
+      'getRatingFilms'
+    ]),
     routeNames () {
       return RouteNames
+    },
+    downloadRef () {
+      const data = {
+        films: this.getFilms,
+        rating: this.getRatingFilms
+      }
+      return 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(data))
     }
   },
   methods: {
     ...mapMutations('cinema', {
       saveApiKeyFoStore: 'saveApiKey'
     }),
+    ...mapActions('cinema', {
+      saveDataToStore: 'importDataFromFile'
+    }),
     saveApiKey () {
       this.saveApiKeyFoStore(this.keyApi)
     },
-    importData () {
-
-    },
-    exportData () {
-
+    importData (file) {
+      this.saveDataToStore(file)
+        .then(() => {
+          this.$message({
+            message: 'Данные сохранены',
+            type: 'success'
+          })
+        })
+        .catch((message) => {
+          this.$message.error(message)
+        })
     }
   }
 }
@@ -88,6 +115,12 @@ export default {
   gap: 16px;
 
   &__key-form {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+  }
+
+  &__buttons {
     display: flex;
     flex-direction: row;
     gap: 16px;

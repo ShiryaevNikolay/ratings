@@ -30,12 +30,6 @@ const syncApiKeyWithLocalStorage = (state) => {
   localStorage.setItem(apiKey, state.keyApi)
 }
 
-// const axiosConfig = {
-//   headers: {
-//     'X-API-KEY': localStorage.getItem(apiKey) || "",
-//     'Content-Type': 'application/json',
-//   }
-// }
 const axiosInstance = axios.create({
   baseURL: 'https://kinopoiskapiunofficial.tech/api/v2.2'
 })
@@ -104,6 +98,14 @@ export default {
       state.keyApi = payload
       syncApiKeyWithLocalStorage(state)
       axiosInstance.defaults.headers['X-API-KEY'] = payload
+    },
+    setFilms (state, payload) {
+      state.films = payload
+      syncFilmsWithLocalStorage(state)
+    },
+    setRatings (state, payload) {
+      state.rating = payload
+      syncRatingFilmsWithLocalStorage(state)
     }
   },
   actions: {
@@ -122,6 +124,23 @@ export default {
     createFilm: ({ commit }, payload) => new Promise((resolve) => {
       commit('addCinema', payload)
       resolve(payload.id)
+    }),
+    importDataFromFile: ({ commit }, payload) => new Promise((resolve, reject) => {
+      const fileReader = new FileReader()
+      fileReader.readAsText(payload.raw)
+      fileReader.onload = () => {
+        const dataAsJson = JSON.parse(fileReader.result)
+        if (dataAsJson.films) {
+          commit('setFilms', dataAsJson.films)
+        }
+        if (dataAsJson.rating) {
+          commit('setRatings', dataAsJson.rating)
+        }
+        return resolve()
+      }
+      fileReader.onerror = () => {
+        return reject("Не удалось загрузить файл")
+      }
     })
   }
 }
