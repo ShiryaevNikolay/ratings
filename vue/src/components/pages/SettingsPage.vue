@@ -1,15 +1,41 @@
 <template>
   <PageLayout>
+    <div class="header">
+      <RouterLink :to="{ name: routeNames.HOME }" replace>
+        <ElButton type="primary" icon="el-icon-arrow-left">Главная страница</ElButton>
+      </RouterLink>
+    </div>
     <section class="p-16">
       <div class="settings">
         <h1>Настройки</h1>
         <div class="settings__key-form">
           <ElInput v-model="keyApi" placeholder="API ключ"/>
-          <ElButton type="success" icon="el-icon-check" plain>Сохранить ключ</ElButton>
+          <ElButton
+            type="success"
+            icon="el-icon-check"
+            plain
+            @click="() => saveApiKey()"
+          >
+          Сохранить ключ
+          </ElButton>
         </div>
         <div class="settings__buttons">
-          <ElButton type="primary" icon="el-icon-upload2" plain>Экспорт данных</ElButton>
-          <ElButton type="primary" icon="el-icon-download" plain>Импорт данных</ElButton>
+          <ElButton
+            type="primary"
+            icon="el-icon-upload2"
+            plain
+            @click="() => exportData()"
+          >
+          Экспорт данных
+          </ElButton>
+          <ElButton
+            type="primary"
+            icon="el-icon-download"
+            plain
+            @click="() => importData()"
+          >
+          Импорт данных
+          </ElButton>
         </div>
       </div>
     </section>
@@ -18,15 +44,38 @@
 
 <script>
 import PageLayout from '../parts/PageLayout'
+import { mapMutations } from 'vuex'
+import { RouterLink } from 'vue-router'
+import { RouteNames } from '@/router/routes'
 
 export default {
   name: 'SettingsPage',
   components: {
-    PageLayout
+    PageLayout,
+    RouterLink
   },
   data () {
     return {
-      keyApi: ""
+      keyApi: ''
+    }
+  },
+  computed: {
+    routeNames () {
+      return RouteNames
+    }
+  },
+  methods: {
+    ...mapMutations('cinema', {
+      saveApiKeyFoStore: 'saveApiKey'
+    }),
+    saveApiKey () {
+      this.saveApiKeyFoStore(this.keyApi)
+    },
+    importData () {
+
+    },
+    exportData () {
+
     }
   }
 }
